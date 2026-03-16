@@ -6,103 +6,6 @@
 <title>CBA Computer Science — Keyword Arena</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <style>
-/* ═══════════════════════════════════════════════
-   CORE LAYOUT & RESET
-   ═══════════════════════════════════════════════ */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-:root {
-  --bg: #0a1825;
-  --surface: #0d1e33;
-  --surface2: #1a3a5c;
-  --border: #2a4a6c;
-  --text: #e4ecf3;
-  --dim: #8da5ba;
-  --accent: #00c8f0;
-  --accent2: #ff6b35;
-  --green: #39ff14;
-  --yellow: #ffd700;
-  --red: #ff3860;
-  --gold: #ffd700;
-}
-
-body {
-  font-family: 'Share Tech Mono', monospace;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-
-body.light {
-  --bg: #f0f4f8;
-  --surface: #ffffff;
-  --surface2: #e8f1f7;
-  --border: #c0d4e4;
-  --text: #0a1825;
-  --dim: #4a6a8a;
-}
-
-#view-home, #view-student, #view-teacher {
-  display: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-#view-home.active, #view-student.active, #view-teacher.active {
-  display: block;
-  opacity: 1;
-}
-
-/* Main container for student arena */
-#main {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-/* Navigation tabs */
-.nav-tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.nav-tab {
-  padding: 10px 16px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text);
-  cursor: pointer;
-  transition: all 0.2s;
-  font-size: 0.75rem;
-  font-family: 'Orbitron', monospace;
-}
-
-.nav-tab:hover {
-  background: var(--surface2);
-  border-color: var(--accent);
-}
-
-.nav-tab.active {
-  background: var(--accent);
-  color: var(--bg);
-  border-color: var(--accent);
-}
-
-/* Game panels */
-.game-panel {
-  display: none;
-}
-
-.game-panel.active {
-  display: block;
-}
 :root {
   --bg:#07101f; --surface:#0f1e33; --surface2:#172845;
   --border:#1a3a5c; --accent:#00c8f0; --accent2:#ff7b2c;
@@ -138,21 +41,13 @@ body.light .nc-tbar{opacity:.85;}
 body{transition:background .25s,color .25s;}
 .theme-toggle{font-family:'Share Tech Mono',monospace;font-size:.72rem;background:transparent;border:1px solid var(--border);color:var(--dim);cursor:pointer;padding:.3rem .75rem;white-space:nowrap;transition:all .18s;letter-spacing:.05em;}
 .theme-toggle:hover{border-color:var(--accent);color:var(--accent);}
-/* ── COLOUR FILTERS ── */
-.filter-overlay{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0;transition:opacity .3s;}
-body.filter-blue  .filter-overlay{background:rgba(173,216,230,0.25);opacity:1;}
-body.filter-green .filter-overlay{background:rgba(144,238,144,0.22);opacity:1;}
-.filter-btn{font-family:'Share Tech Mono',monospace;font-size:.68rem;padding:.28rem .65rem;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--dim);transition:all .18s;white-space:nowrap;}
-.filter-btn:hover{border-color:var(--accent);color:var(--accent);}
-.filter-btn.active-blue{background:rgba(100,149,237,.25);border-color:#6495ED;color:#6495ED;}
-.filter-btn.active-green{background:rgba(60,179,113,.2);border-color:#3CB371;color:#3CB371;}
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;}
 body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;min-height:100vh;overflow-x:hidden;}
 body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,200,240,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,240,.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;animation:gridscroll 25s linear infinite;}
 @keyframes gridscroll{to{background-position:48px 48px;}}
 body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 40%,rgba(0,200,240,.05) 0%,transparent 55%),radial-gradient(ellipse at 85% 15%,rgba(255,123,44,.04) 0%,transparent 50%);pointer-events:none;z-index:0;}
-<!-- Mahase J Design -->
+
 /* ── SCREENS ── */
 .screen{display:none;position:relative;z-index:10;min-height:100vh;flex-direction:column;}
 .screen.active{display:flex;}
@@ -222,7 +117,7 @@ label{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--dim);
 .gs-setup{background:var(--surface2);border:1px solid var(--border);padding:1rem 1.2rem;margin-top:.8rem;}
 .gs-setup p{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--dim);margin-bottom:.5rem;line-height:1.6;}
 .gs-setup input{font-size:.82rem;}
-<!-- Mahase J Design -->
+
 /* ══════════════════════════════════════════════════
    NAV / GAME SELECTOR
 ══════════════════════════════════════════════════ */
@@ -599,7 +494,7 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
 .lb-score-wrap{text-align:right;}
 .lb-total{font-family:'Orbitron',monospace;font-size:1.1rem;font-weight:900;color:var(--yellow);}
 .lb-sub{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--dim);}
-<!-- Mahase J Design -->
+
 /* ── PROGRESS BAR ── */
 .lb-prog{height:3px;background:var(--border);margin-top:3px;overflow:hidden;}
 .lb-prog-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .6s ease;}
@@ -700,7 +595,6 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
 </style>
 </head>
 <body>
-<div class="filter-overlay" id="filter-overlay"></div>
 
 <!-- ═══════════════ HOME ═══════════════ -->
 <div id="view-home">
@@ -749,12 +643,12 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
   <div class="home-info">
     <p><strong>Games:</strong> CS Wordle · Quiz Mode · Connect 4 · Hangman · Network Challenge · 🐍 Python Challenges<br>
     <strong>Topics:</strong> Networks · Algorithms · Hardware · Programming · Security · OOP · Databases · Python<br>
-    <strong>Spec:</strong> OCR J277 / Corby Business Academy — Component 1 &amp; 2</p>
+    <strong>Spec:</strong> OCR J277 / AQA 8525 — Component 1 &amp; 2</p>
   </div>
   <div class="home-footer">CORBY BUSINESS ACADEMY — COMPUTER SCIENCE DEPARTMENT // GCSE REVISION HUB</div>
 </div>
 </div>
-<!-- Mahase J Design -->
+
 <!-- ═══════════════ STUDENT ═══════════════ -->
 <div id="view-student">
 <!-- ════════════════════════════════════════════════
@@ -765,8 +659,6 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
     <div style="display:flex;align-items:center;gap:.8rem;"><button class="home-back" onclick="showView('home')">← HOME</button><div class="g-logo">CBA <em>//</em> CS DEPT</div></div>
     <div style="display:flex;align-items:center;gap:.6rem;">
       <button class="theme-toggle" id="theme-btn-reg" onclick="toggleTheme()">☀ LIGHT MODE</button>
-      <button class="filter-btn" id="fb-blue-reg" onclick="setFilter('blue')" title="Blue tint — may help with reading">🔵</button>
-      <button class="filter-btn" id="fb-green-reg" onclick="setFilter('green')" title="Green tint — may reduce eye strain">🟢</button>
       <div class="g-meta">KEYWORD ARENA<br>GCSE REVISION HUB</div>
     </div>
   </div>
@@ -839,7 +731,7 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
     </div>
   </div>
 </div>
-<!-- Mahase J Design -->
+
 <!-- ════════════════════════════════════════════════
      MAIN GAME SCREEN
 ════════════════════════════════════════════════ -->
@@ -848,8 +740,6 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
     <div class="g-logo">CBA <em>//</em> CS DEPT</div>
     <div style="display:flex;align-items:center;gap:.6rem;">
       <button class="theme-toggle" id="theme-btn-main" onclick="toggleTheme()">☀ LIGHT MODE</button>
-      <button class="filter-btn" id="fb-blue-main" onclick="setFilter('blue')" title="Blue tint">🔵</button>
-      <button class="filter-btn" id="fb-green-main" onclick="setFilter('green')" title="Green tint">🟢</button>
       <div class="g-meta" id="main-meta">KEYWORD ARENA</div>
     </div>
   </div>
@@ -937,7 +827,7 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
       </div>
       <div id="c4-msg" class="msg" style="display:none;text-align:center;"></div>
     </div>
-<!-- Mahase J Design -->
+
     <!-- HANGMAN PANEL -->
     <div class="game-panel" id="panel-hangman">
       <div style="text-align:center;margin-bottom:1rem;">
@@ -973,7 +863,7 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
         </div>
       </div>
     </div>
-<!-- Mahase J Design -->
+
     <!-- NETWORK CHALLENGE PANEL -->
     <div class="game-panel" id="panel-network">
       <!-- Pre-game splash -->
@@ -1039,7 +929,7 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
       </div>
     </div>
 
-    <!-- PYTHON CHALLENGES PANEL --><!-- Mahase J Design -->
+    <!-- PYTHON CHALLENGES PANEL -->
     <div class="game-panel" id="panel-python">
       <div style="text-align:center;margin-bottom:1.2rem;">
         <div class="sec-title" style="color:#39ff14;text-shadow:0 0 20px rgba(57,255,20,.3);">🐍 PYTHON CHALLENGES</div>
@@ -1098,7 +988,7 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
 
 <div class="pts-flash" id="pts-flash"></div>
 </div>
-<!-- Mahase J Design -->
+
 <!-- ═══════════════ TEACHER ═══════════════ -->
 <div id="view-teacher">
 <div class="dash">
@@ -1205,7 +1095,7 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
           <button class="btn btn-red" onclick="tConfirmClear()">🗑 CLEAR ALL SCORES</button>
         </div>
       </div>
-<!-- Mahase J Design -->
+
       <div class="gs-bar">
         <div class="gs-indicator">
           <div class="gs-dot" id="gs-dot"></div>
@@ -1247,7 +1137,7 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
     </div>
   </div>
 </div>
-<!-- Mahase J Design -->
+
 <!-- CONFIRM CLEAR MODAL -->
 <div class="modal-bg" id="clear-modal">
   <div class="modal">
@@ -1261,7 +1151,7 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
 </div></div>
 
 <div class="pts-flash" id="pts-flash"></div>
-<!-- Mahase J Design -->
+
 <script>
 // ═══════════════════════════════════════════════
 // VIEW CONTROLLER
@@ -1364,76 +1254,61 @@ const KEYWORDS=[
   {word:"ENCAPSULATION",hint:"Bundling data and methods and restricting direct access",category:"OOP"},
   {word:"INTERFACE",hint:"A contract defining methods a class must implement",category:"OOP"},
 ];
-<!-- Mahase J Design -->
+
 const QUIZ_Q=[
   {q:"What does CPU stand for?",opts:["Central Processing Unit","Core Power Unit","Computer Processing Unit","Central Program Utility"],ans:0,cat:"Hardware",exp:"The CPU is the brain of the computer, executing instructions."},
-  {q:"Which sort repeatedly swaps adjacent elements?",opts:["Merge Sort","Quick Sort","Bubble Sort","Insertion Sort"],ans:2,cat:"Algorithms",exp:"Bubble Sort compares adjacent pairs and bubbles larger values to the end."},
-  {q:"What does RAM stand for?",opts:["Rapid Access Module","Random Access Memory","Read And Modify","Read Access Memory"],ans:1,cat:"Hardware",exp:"RAM is volatile temporary memory used while the computer runs."},
-  {q:"What is the decimal value of binary 1010?",opts:["8","12","6","10"],ans:3,cat:"Data",exp:"1010 = 8+0+2+0 = 10 in decimal."},
-  {q:"What is the decimal value of binary 1111?",opts:["14","16","15","13"],ans:2,cat:"Data",exp:"1111 = 8+4+2+1 = 15."},
-  {q:"What is binary 0110 in decimal?",opts:["4","6","8","5"],ans:1,cat:"Data",exp:"0110 = 0+4+2+0 = 6."},
-  {q:"What is the hexadecimal value of decimal 255?",opts:["EE","FE","FF","EF"],ans:2,cat:"Data",exp:"255 = 16×15 + 15 = FF in hexadecimal."},
-  {q:"What is hex A in decimal?",opts:["9","11","10","12"],ans:2,cat:"Data",exp:"Hex A = 10 in decimal. Hex uses A-F for values 10-15."},
-  {q:"What is hex F in decimal?",opts:["14","16","13","15"],ans:3,cat:"Data",exp:"Hex F = 15. The hex digits A-F represent 10-15."},
-  {q:"Convert hex 1A to decimal.",opts:["26","28","24","30"],ans:0,cat:"Data",exp:"1A = 1×16 + 10 = 26."},
-  {q:"Convert hex 2F to decimal.",opts:["45","48","47","43"],ans:2,cat:"Data",exp:"2F = 2×16 + 15 = 47."},
-  {q:"How many bits in a byte?",opts:["4","16","8","2"],ans:2,cat:"Data",exp:"1 byte = 8 bits."},
-  {q:"How many bytes in a kilobyte?",opts:["100","512","1024","2048"],ans:2,cat:"Data",exp:"1 KB = 1024 bytes."},
-  {q:"What is binary 1000 in decimal?",opts:["6","8","4","10"],ans:1,cat:"Data",exp:"1000 = 8+0+0+0 = 8."},
-  {q:"Add binary 0011 + 0101.",opts:["0111","1001","1000","0110"],ans:2,cat:"Data",exp:"0011 + 0101 = 1000 (3+5=8)."},
-  {q:"What network topology uses a central switch?",opts:["Ring","Mesh","Bus","Star"],ans:3,cat:"Networks",exp:"Star topology connects all devices to a central switch or hub."},
-  {q:"What is a network protocol?",opts:["A type of cable","Rules for data transmission","A security device","A routing table"],ans:1,cat:"Networks",exp:"Protocols define how data is formatted, transmitted and received."},
-  {q:"Which data type is True or False?",opts:["Integer","String","Boolean","Float"],ans:2,cat:"Programming",exp:"Boolean holds only True or False."},
-  {q:"What does a compiler do?",opts:["Runs code line by line","Links libraries together","Translates whole program to machine code","Manages memory allocation"],ans:2,cat:"Systems",exp:"A compiler translates an entire program into machine code before execution."},
-  {q:"What does phishing mean?",opts:["Port scanning","Server flooding","Tricking users for data","Installing spyware"],ans:2,cat:"Security",exp:"Phishing uses fake emails or websites to steal passwords and data."},
-  {q:"What is the FETCH stage of the CPU?",opts:["Carry out instruction","Translate instruction","Get next instruction from memory","Store result in register"],ans:2,cat:"Hardware",exp:"FETCH retrieves the next instruction from memory using the program counter."},
-  {q:"Which structure uses LIFO?",opts:["Queue","Array","Graph","Stack"],ans:3,cat:"Data Structures",exp:"A Stack is Last In First Out — like a pile of plates."},
-  {q:"How does binary search work?",opts:["Left to right scan","Hash table lookup","Halves search space each step","Jumps random indexes"],ans:2,cat:"Algorithms",exp:"Binary search halves the search area each step — requires sorted data."},
-  {q:"What is lossy compression?",opts:["Keeps all data intact","Encrypts file contents","Permanently removes some data","Splits file into parts"],ans:2,cat:"Data",exp:"Lossy compression (e.g. JPEG, MP3) discards some data to reduce file size."},
-  {q:"What does a firewall do?",opts:["Speeds up traffic","Assigns IP addresses","Stores passwords securely","Monitors and filters network traffic"],ans:3,cat:"Security",exp:"A firewall monitors connections and blocks those not meeting security rules."},
-  {q:"In OOP, what is a class?",opts:["A running process","A type of variable","A blueprint for objects","A network address"],ans:2,cat:"OOP",exp:"A class is a template defining the attributes and methods of objects."},
-  {q:"What does a router do?",opts:["Connects same-network devices","Assigns MAC addresses","Converts analogue signals","Forwards packets between networks"],ans:3,cat:"Networks",exp:"Routers direct data packets between networks, choosing the best path."},
-  {q:"What best describes an algorithm?",opts:["A programming language","A type of processor","A storage method","Step-by-step problem solution"],ans:3,cat:"Algorithms",exp:"An algorithm is a precise, finite sequence of steps for a specific problem."},
-  {q:"What is a variable?",opts:["A fixed constant","A loop construct","A named store for changeable data","A type of function"],ans:2,cat:"Programming",exp:"Variables store data that may change during program execution."},
-  {q:"What is a PRIMARY KEY?",opts:["Sorts records alphabetically","Encrypts database rows","Links to another table","Uniquely identifies each record"],ans:3,cat:"Databases",exp:"A primary key uniquely identifies each row, preventing duplicates."},
-  {q:"What is lossless compression?",opts:["Discards some data","Increases file size","All original data restored","Only compresses images"],ans:2,cat:"Data",exp:"Lossless compression (e.g. PNG, ZIP) keeps all original data intact."},
-  {q:"What is cache memory?",opts:["Long-term disk storage","Network buffer memory","Very fast CPU-side memory","Operating system storage"],ans:2,cat:"Hardware",exp:"Cache is extremely fast memory near the CPU to reduce RAM access time."},
-  {q:"What does SQL stand for?",opts:["System Queue Logic","Standard Query Language","Structured Query Language","Sequential Query Logic"],ans:2,cat:"Databases",exp:"SQL is used to create, read, update and delete database data."},
-  {q:"What is inheritance in OOP?",opts:["Calling a method","Creating a new object","Storing a variable","Child class gets parent properties"],ans:3,cat:"OOP",exp:"Inheritance lets a class reuse and extend code from another class."},
-  {q:"Purpose of an operating system?",opts:["Provide internet access","Run only one program","Store all user files","Manage hardware and run programs"],ans:3,cat:"Systems",exp:"The OS manages CPU, memory, file systems and user interfaces."},
-  {q:"What is malware?",opts:["A network cable type","A database language","A programming framework","Unauthorised damaging software"],ans:3,cat:"Security",exp:"Malware includes viruses, worms, ransomware and spyware."},
-  {q:"What does debugging mean?",opts:["Writing new code","Compressing program files","Encrypting source code","Finding and fixing errors"],ans:3,cat:"Programming",exp:"Debugging is identifying and removing bugs (errors) from code."},
-  {q:"Which is an INPUT device?",opts:["Monitor","Printer","Speaker","Keyboard"],ans:3,cat:"Hardware",exp:"Input devices send data to the computer."},
-  {q:"What does bandwidth mean?",opts:["Physical cable length","Number of devices","IP address range","Maximum data transfer rate"],ans:3,cat:"Networks",exp:"Bandwidth measures data transmitted per second, in Mbps or Gbps."},
-  {q:"What is packet switching?",opts:["Sending one large block","A network topology","Encrypting data first","Breaking data into routed packets"],ans:3,cat:"Networks",exp:"Packet switching breaks data into packets, each routed independently."},
-  {q:"What does an interpreter do?",opts:["Compiles whole program first","Manages network traffic","Encrypts source files","Translates and runs code line by line"],ans:3,cat:"Systems",exp:"An interpreter translates and executes source code one line at a time."},
-  {q:"What is a queue data structure?",opts:["Last in first out","Random access order","Sorted order always","First in first out"],ans:3,cat:"Data Structures",exp:"A queue is FIFO — like a line of people, first to join is first to leave."},
-  {q:"What does DECODE do in CPU cycle?",opts:["Fetches instruction","Stores result","Sends to RAM","Interprets the instruction"],ans:3,cat:"Hardware",exp:"DECODE translates the fetched instruction so the CPU knows what to do."},
-  {q:"What is abstraction?",opts:["Writing detailed code","Sorting data efficiently","Compressing files smaller","Hiding complexity, showing essentials"],ans:3,cat:"Programming",exp:"Abstraction hides unnecessary detail so programmers focus on key functionality."},
-  {q:"What does ASCII do?",opts:["Sorts database records","Compresses image files","Encrypts network traffic","Maps characters to numbers"],ans:3,cat:"Data",exp:"ASCII maps characters to numbers so computers can store and transmit text."},
-  {q:"What is encapsulation in OOP?",opts:["Sharing all data publicly","Looping through objects","Creating subclasses","Bundling data with restricted access"],ans:3,cat:"OOP",exp:"Encapsulation hides internal state and requires interaction through defined methods."},
-  {q:"What does a switch do in a network?",opts:["Connects different networks","Translates domain names","Assigns IP addresses","Directs data to correct device on LAN"],ans:3,cat:"Networks",exp:"A switch uses MAC addresses to forward frames only to the correct device."},
-  {q:"What is a truth table for?",opts:["Store database records","Plan a network layout","Sort data efficiently","Show all Boolean input/output combos"],ans:3,cat:"Algorithms",exp:"Truth tables list every combination of inputs and the resulting Boolean output."},
-  {q:"What is hexadecimal?",opts:["Base 2 number system","Base 8 number system","Base 10 number system","Base 16 number system"],ans:3,cat:"Data",exp:"Hexadecimal uses 16 symbols: 0-9 and A-F. Widely used in computing."},
-  {q:"What is a relational database?",opts:["Single flat table","Cloud-only database","Numbers-only database","Tables linked by keys"],ans:3,cat:"Databases",exp:"Relational databases store data in related tables linked by keys."},
-  {q:"What does DRY mean in programming?",opts:["Delete Repeated Yields","Data Retrieval Yield","Direct Runtime Yes","Do Not Repeat Yourself"],ans:3,cat:"Programming",exp:"DRY: avoid duplicating code by using functions and reusable components."},
-  {q:"What is a subroutine?",opts:["A type of variable","A database query","A network address","A reusable named code block"],ans:3,cat:"Programming",exp:"Subroutines (functions/procedures) are reusable named blocks of code."},
-  {q:"What is the fetch-decode-execute cycle?",opts:["Boot sequence of a computer","Steps to encrypt data","Process of compiling code","How the CPU processes instructions"],ans:3,cat:"Hardware",exp:"The FDE cycle is the continuous process by which the CPU processes instructions."},
-<!-- Mahase J Design -->
-  {q:"What is binary 1100 in decimal?",opts:["10","14","12","8"],ans:2,cat:"Data",exp:"1100 = 8+4+0+0 = 12."},
-  {q:"What is decimal 13 in binary?",opts:["1011","1110","1101","1010"],ans:2,cat:"Data",exp:"13 = 8+4+1 = 1101 in binary."},
-  {q:"What is hex B in decimal?",opts:["10","12","11","13"],ans:2,cat:"Data",exp:"Hex B = 11. A=10, B=11, C=12, D=13, E=14, F=15."},
-  {q:"What is hex 1F in decimal?",opts:["30","29","31","33"],ans:2,cat:"Data",exp:"1F = 1×16 + 15 = 31."},
-  {q:"Convert decimal 200 to hex.",opts:["B8","C6","C8","CA"],ans:2,cat:"Data",exp:"200 = 12×16 + 8 = C8 in hex."},
-  {q:"What is binary 11111111 in decimal?",opts:["254","256","255","253"],ans:2,cat:"Data",exp:"11111111 = 128+64+32+16+8+4+2+1 = 255."},
-  {q:"What is decimal 16 in binary?",opts:["00100000","00001111","00010001","00010000"],ans:3,cat:"Data",exp:"16 = 00010000 in 8-bit binary."},
-  {q:"Why is hex used in computing?",opts:["Faster than binary","Computers run on hex","Uses fewer transistors","Represents binary compactly"],ans:3,cat:"Data",exp:"Each hex digit represents exactly 4 bits, making binary easier to read."},
-  {q:"How many hex digits make one byte?",opts:["4","8","1","2"],ans:3,cat:"Data",exp:"One byte = 8 bits = 2 hex digits (e.g. FF = 11111111)."},
-  {q:"What is 0111 + 0001 in binary?",opts:["0111","1001","1010","1000"],ans:3,cat:"Data",exp:"0111 + 0001 = 1000 (7+1=8). Watch the carry bits."},
-  {q:"What is hex C in decimal?",opts:["10","11","13","12"],ans:3,cat:"Data",exp:"Hex C = 12. Remember A=10 through F=15."},
-  {q:"Convert binary 10101010 to hex.",opts:["BB","A0","AB","AA"],ans:3,cat:"Data",exp:"1010=A, 1010=A, so 10101010 = AA in hex."},
-  {q:"What is the decimal value of hex 3C?",opts:["54","62","58","60"],ans:3,cat:"Data",exp:"3C = 3×16 + 12 = 48+12 = 60."},
-  {q:"What is 8-bit binary 01000001?",opts:["66","64","63","65"],ans:3,cat:"Data",exp:"01000001 = 64+1 = 65. This is also the ASCII code for 'A'."},];
+  {q:"Which sorting algorithm works by repeatedly swapping adjacent elements?",opts:["Merge Sort","Quick Sort","Bubble Sort","Insertion Sort"],ans:2,cat:"Algorithms",exp:"Bubble Sort compares adjacent pairs and bubbles larger values to the end."},
+  {q:"What does RAM stand for?",opts:["Read Access Memory","Random Access Memory","Rapid Access Module","Read And Modify"],ans:1,cat:"Hardware",exp:"RAM is volatile temporary memory used while the computer runs."},
+  {q:"In binary, what is the decimal value of 1010?",opts:["8","10","12","6"],ans:1,cat:"Data",exp:"1010 = 8+0+2+0 = 10 in decimal."},
+  {q:"What network topology connects all devices to a central switch?",opts:["Ring","Mesh","Bus","Star"],ans:3,cat:"Networks",exp:"Star topology connects all devices to a central switch or hub."},
+  {q:"What is a network protocol?",opts:["A type of cable","A set of rules for data transmission","A network device","A firewall type"],ans:1,cat:"Networks",exp:"Protocols define how data is formatted, transmitted and received."},
+  {q:"Which data type holds only True or False?",opts:["Alphabet","Boolean","Integer","String"],ans:1,cat:"Programming",exp:"Boolean holds only True or False — essential in programming logic."},
+  {q:"What does a compiler do?",opts:["Runs code line by line","Translates high-level code to machine code at once","Manages memory","Connects to the internet"],ans:1,cat:"Systems",exp:"A compiler translates an entire program into machine code before execution."},
+  {q:"What does phishing mean in cybersecurity?",opts:["Scanning for open ports","Flooding a server","Tricking users into revealing sensitive data","Installing a virus via USB"],ans:2,cat:"Security",exp:"Phishing uses fake emails or websites to steal passwords and data."},
+  {q:"What is the FETCH stage of the CPU cycle?",opts:["Carrying out the instruction","Translating the instruction","Retrieving the next instruction from memory","Storing the result"],ans:2,cat:"Hardware",exp:"FETCH retrieves the next instruction from memory using the program counter."},
+  {q:"Which data structure uses LIFO?",opts:["Queue","Array","Stack","Linked List"],ans:2,cat:"Data Structures",exp:"A Stack works like a pile of plates — last in, first out."},
+  {q:"What is binary search?",opts:["Searching left to right","Halving the search space each time","Sorting then searching","Searching with a hash"],ans:1,cat:"Algorithms",exp:"Binary search works on sorted data, halving the search area each step."},
+  {q:"What is lossy compression?",opts:["Keeps all original data","Permanently discards some data","Encrypts file data","Compresses only metadata"],ans:1,cat:"Data",exp:"Lossy compression (e.g. JPEG, MP3) sacrifices data for smaller file size."},
+  {q:"What does a firewall do?",opts:["Speeds up network traffic","Stores passwords","Monitors and filters network traffic","Allocates IP addresses"],ans:2,cat:"Security",exp:"A firewall acts as a security barrier between trusted and untrusted networks."},
+  {q:"In OOP, what is a class?",opts:["A running program","A blueprint for creating objects","A type of variable","A network server"],ans:1,cat:"OOP",exp:"A class is a template defining the attributes and methods of objects."},
+  {q:"How many bits are in one byte?",opts:["4","16","2","8"],ans:3,cat:"Data",exp:"1 byte = 8 bits. A fundamental unit of digital storage."},
+  {q:"What does a router do?",opts:["Connects devices in the same network","Forwards data packets between different networks","Converts digital to analogue","Stores website files"],ans:1,cat:"Networks",exp:"Routers direct data packets between networks, choosing the best path."},
+  {q:"What best describes an algorithm?",opts:["A programming language","Step-by-step instructions to solve a problem","A type of chip","A storage method"],ans:1,cat:"Algorithms",exp:"An algorithm is a precise, finite sequence of steps for a specific problem."},
+  {q:"What is a variable?",opts:["A fixed value","A programming error","A named memory location that can store different values","A type of loop"],ans:2,cat:"Programming",exp:"Variables store data that may change during program execution."},
+  {q:"What is a PRIMARY KEY in a database?",opts:["Sorts records alphabetically","Uniquely identifies each record","Links to another database","Encrypts data"],ans:1,cat:"Databases",exp:"A primary key is a unique identifier for each row, preventing duplicates."},
+  {q:"What is lossless compression?",opts:["Some data is permanently lost","The file becomes larger","All original data can be perfectly restored","Only images can be compressed"],ans:2,cat:"Data",exp:"Lossless compression (e.g. PNG, ZIP) keeps all original data intact."},
+  {q:"What is cache memory for?",opts:["Long-term storage","Internet connection","Temporarily storing frequently used data for faster CPU access","Running the OS"],ans:2,cat:"Hardware",exp:"Cache is extremely fast memory near the CPU to reduce RAM access time."},
+  {q:"What does SQL stand for?",opts:["Sequential Query Language","Structured Query Language","System Queue Logic","Software Query Line"],ans:1,cat:"Databases",exp:"SQL is used to create, read, update and delete database data."},
+  {q:"What is inheritance in OOP?",opts:["Creating a new object","A child class acquiring properties from a parent class","Calling a function","Storing data in a variable"],ans:1,cat:"OOP",exp:"Inheritance lets a class reuse and extend code from another class."},
+  {q:"What is the purpose of an operating system?",opts:["Provide internet access","Manage hardware resources and provide services to programs","Store user files","Run only one program at a time"],ans:1,cat:"Systems",exp:"The OS manages CPU, memory, file systems and user interfaces."},
+  {q:"What is malware?",opts:["A network cable type","Software designed to damage or gain unauthorised access","A programming language","A database tool"],ans:1,cat:"Security",exp:"Malware includes viruses, worms, ransomware and spyware."},
+  {q:"What does debugging mean?",opts:["Writing new code","Compressing files","Finding and fixing errors in a program","Encrypting a program"],ans:2,cat:"Programming",exp:"Debugging is identifying and removing bugs (errors) from code."},
+  {q:"Which is an INPUT device?",opts:["Monitor","Printer","Keyboard","Speaker"],ans:2,cat:"Hardware",exp:"Input devices send data to the computer — the keyboard is the classic example."},
+  {q:"What does bandwidth mean in networking?",opts:["Physical cable length","Maximum rate of data transfer","Number of connected devices","IP address range"],ans:1,cat:"Networks",exp:"Bandwidth measures data transmitted per second, in Mbps or Gbps."},
+  {q:"What is packet switching?",opts:["Sending data in one large block","Breaking data into independently-routed packets","A network topology","Encrypting data before sending"],ans:1,cat:"Networks",exp:"Packet switching breaks data into packets, each routed independently."},
+  {q:"What does an interpreter do?",opts:["Compiles the whole program first","Translates and runs code line by line","Manages network traffic","Encrypts data"],ans:1,cat:"Systems",exp:"An interpreter translates and executes source code one line at a time."},
+  {q:"What is a queue data structure?",opts:["Last in first out","Random access","First in first out","Sorted order only"],ans:2,cat:"Data Structures",exp:"A queue is FIFO — like a line of people, first to join is first to leave."},
+  {q:"What does the DECODE stage of the CPU cycle do?",opts:["Fetches the instruction","Stores the result","Interprets what the instruction means","Sends data to RAM"],ans:2,cat:"Hardware",exp:"DECODE translates the fetched instruction so the CPU understands what to do."},
+  {q:"What is a two-dimensional array?",opts:["A list of characters","A table of values with rows and columns","A sorted list","A type of loop"],ans:1,cat:"Data Structures",exp:"A 2D array is like a grid or table, accessed using two index values."},
+  {q:"What is the purpose of an index in a database?",opts:["Encrypts data","Speeds up searching and sorting","Links tables together","Validates input"],ans:1,cat:"Databases",exp:"An index speeds up queries by creating a fast lookup structure on a column."},
+  {q:"What is abstraction in programming?",opts:["Writing detailed code","Hiding complexity and showing only necessary details","Sorting data","Compressing files"],ans:1,cat:"Programming",exp:"Abstraction hides unnecessary detail so programmers can focus on key functionality."},
+  {q:"What does ASCII stand for?",opts:["American Standard Code for Information Interchange","Automated System Code Interface","Applied Software Control Instruction","Advanced Standard Computer Interface"],ans:0,cat:"Data",exp:"ASCII maps characters to numbers so computers can store and transmit text."},
+  {q:"What is the difference between hardware and software?",opts:["Hardware is digital, software is analogue","Hardware is physical components, software is programs and data","Hardware runs faster","Software is cheaper"],ans:1,cat:"Hardware",exp:"Hardware is the physical machine; software is the instructions that run on it."},
+  {q:"What is a local variable?",opts:["Accessible from anywhere in a program","Only accessible within the function or block it is declared in","A variable stored on disk","A network address"],ans:1,cat:"Programming",exp:"Local variables only exist within their scope — the function or block they are in."},
+  {q:"What is the purpose of a foreign key in a database?",opts:["Encrypts a record","Links a record in one table to a record in another table","Speeds up searching","Sorts the table"],ans:1,cat:"Databases",exp:"A foreign key creates a relationship between two tables by referencing a primary key."},
+  {q:"Which generation of programming language is most like natural language?",opts:["1GL","2GL","3GL","4GL"],ans:3,cat:"Systems",exp:"4GLs (e.g. SQL) are closest to natural language and furthest from machine code."},
+  {q:"What is a denial of service (DoS) attack?",opts:["Stealing passwords","Flooding a server with requests to make it unavailable","Installing a backdoor","Intercepting data"],ans:1,cat:"Security",exp:"DoS overwhelms a server with traffic so it cannot respond to legitimate users."},
+  {q:"What is meant by data type?",opts:["How data is sorted","The category of data a variable can hold, e.g. integer, string","The size of a file","How data is encrypted"],ans:1,cat:"Programming",exp:"Data types define what kind of value a variable holds and what operations are valid."},
+  {q:"What is polymorphism in OOP?",opts:["An object having one fixed form","Different objects responding to the same method in different ways","Hiding data inside a class","Copying an object"],ans:1,cat:"OOP",exp:"Polymorphism means different classes can share method names but behave differently."},
+  {q:"What is encapsulation in OOP?",opts:["Sharing all data publicly","Bundling data and methods together and restricting direct access","Creating subclasses","Looping through objects"],ans:1,cat:"OOP",exp:"Encapsulation hides internal state and requires interaction through defined methods."},
+  {q:"What does a switch do in a network?",opts:["Connects different networks","Translates domain names","Directs data to the correct device within the same network using MAC addresses","Assigns IP addresses"],ans:2,cat:"Networks",exp:"A switch uses MAC addresses to forward frames only to the correct device on a LAN."},
+  {q:"What is the purpose of a truth table?",opts:["To store database records","To show all possible inputs and outputs of a Boolean expression","To plan a network layout","To sort data"],ans:1,cat:"Algorithms",exp:"Truth tables list every combination of inputs and the resulting Boolean output."},
+  {q:"What is hexadecimal?",opts:["Base 2 number system","Base 8 number system","Base 10 number system","Base 16 number system"],ans:3,cat:"Data",exp:"Hexadecimal (hex) uses 16 symbols: 0-9 and A-F. Widely used in computing."},
+  {q:"What is the fetch-decode-execute cycle?",opts:["The boot sequence of a computer","The process a CPU uses to carry out instructions","The steps to encrypt data","The process of compiling code"],ans:1,cat:"Hardware",exp:"The FDE cycle is the continuous process by which the CPU processes instructions."},
+  {q:"What is a relational database?",opts:["A database stored on a single table","A database that organises data into linked tables","A database that only stores numbers","A database stored in the cloud"],ans:1,cat:"Databases",exp:"Relational databases store data in related tables linked by keys."},
+  {q:"What does DRY stand for in programming?",opts:["Delete Repeated Yields","Data Retrieval Yield","Do not Repeat Yourself","Direct Runtime Yes"],ans:2,cat:"Programming",exp:"DRY is a principle: avoid duplicating code by using functions and reusable components."},
+  {q:"What is a subroutine?",opts:["A type of variable","A named block of code that can be called and reused","A database query","A network address"],ans:1,cat:"Programming",exp:"Subroutines (functions/procedures) are reusable named blocks of code."},
+];
 
 const NC_Q=[
   {q:"What is a computer network?",opts:["A single powerful computer","Two or more computers connected to share resources","A type of operating system","A programming language"],ans:1,cat:"Network Fundamentals",exp:"A network is two or more connected devices that can share data and resources."},
@@ -1614,28 +1489,21 @@ async function renderLB() {
   if (!el) return;
   el.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--dim);font-family:Share Tech Mono,monospace;font-size:.78rem;">Loading scores…</div>';
 
-  // Fetch all scores from Sheets using JSONP (works from GitHub Pages, local files, everywhere)
-  let allScores = [...leaderboard];
+  // Fetch all scores from Sheets so all students appear
+  let allScores = [...leaderboard]; // start with in-memory
   if (gsUrl) {
-    allScores = await new Promise(resolve => {
-      const cb = 'lbCb_' + Date.now();
-      const s  = document.createElement('script');
-      const t  = setTimeout(() => { cleanup(); resolve([...leaderboard]); }, 6000);
-      function cleanup(){ clearTimeout(t); delete window[cb]; if(s.parentNode) s.parentNode.removeChild(s); }
-      window[cb] = function(data) {
-        cleanup();
-        let scores = [...leaderboard];
-        if (data && data.status === 'ok' && Array.isArray(data.scores)) {
-          data.scores.forEach(r => {
-            if (!scores.some(m => m.name===r.name && m.date===r.date && m.game===r.game)) scores.push(r);
-          });
-        }
-        resolve(scores);
-      };
-      s.onerror = () => { cleanup(); resolve([...leaderboard]); };
-      s.src = gsUrl + '?action=getScores&callback=' + cb + '&t=' + Date.now();
-      document.head.appendChild(s);
-    });
+    try {
+      const res  = await fetch(gsUrl + '?action=getScores&t=' + Date.now());
+      const data = await res.json();
+      if (data.status === 'ok' && Array.isArray(data.scores)) {
+        // Merge: add Sheets scores not already in memory
+        data.scores.forEach(s => {
+          if (!allScores.some(m => m.name===s.name && m.date===s.date && m.game===s.game)) {
+            allScores.push(s);
+          }
+        });
+      }
+    } catch(e) { /* use in-memory only */ }
   }
 
   if (!allScores.length) {
@@ -1715,7 +1583,7 @@ function exportCSV() {
 }
 
 function setMsg(id,txt,type){const e=document.getElementById(id);if(!e)return;e.textContent=txt;e.className='msg '+(type||'');e.style.display=txt?'block':'none';}
-<!-- Mahase J Design -->
+
 // ═══════════════════════════════════════════════════════════
 // WORDLE
 // ═══════════════════════════════════════════════════════════
@@ -1837,7 +1705,7 @@ function renderQz(){
     b.onclick=()=>qzAnswer(i);opts.appendChild(b);});
   document.getElementById('qz-exp').style.display='none';
   document.getElementById('qz-next').style.display='none';
-  qzS.answered=false;<!-- Mahase J Design -->
+  qzS.answered=false;
 }
 function qzAnswer(idx){
   if(qzS.answered)return;qzS.answered=true;
@@ -1873,7 +1741,7 @@ function initC4(){
        shuffledQ:shuffleArray([...QUIZ_Q,...NC_Q]),qIdx:0};
   document.getElementById('c4-qpanel').style.display='none';
   setMsg('c4-msg','','');
-  renderC4();updateC4UI();<!-- Mahase J Design -->
+  renderC4();updateC4UI();
 }
 function renderC4(){
   const board=document.getElementById('c4-board');
@@ -2149,28 +2017,6 @@ if (store.get('cba_theme') === 'light') {
   document.querySelectorAll('.theme-toggle').forEach(b => b.textContent = '🌙 DARK MODE');
 }
 
-// ── COLOUR FILTER FOR ACCESSIBILITY ──<!-- Mahase J Design -->
-let activeFilter = store.get('cba_filter') || 'none';
-function setFilter(f) {
-  // Toggle off if already active
-  if (activeFilter === f) f = 'none';
-  activeFilter = f;
-  store.set('cba_filter', f);
-  document.body.classList.remove('filter-blue', 'filter-green');
-  document.querySelectorAll('.filter-btn').forEach(b => {
-    b.classList.remove('active-blue', 'active-green');
-  });
-  if (f === 'blue') {
-    document.body.classList.add('filter-blue');
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.add('active-blue'));
-  } else if (f === 'green') {
-    document.body.classList.add('filter-green');
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.add('active-green'));
-  }
-}
-// Apply saved filter on load
-if (activeFilter !== 'none') setFilter(activeFilter);
-
 // ═══════════════════════════════════════════════════════════
 // PROOF OF LEARNING — GENERATE PRINTABLE DOCUMENT
 // ═══════════════════════════════════════════════════════════
@@ -2255,7 +2101,7 @@ function generatePoL() {
     <div class="hdr-right">
       Generated: ${new Date().toLocaleString('en-GB')}<br>
       Resource: CBA_Keyword_Arena.html<br>
-      Spec: OCR J277 / CBA
+      Spec: OCR J277 / AQA 8525
     </div>
   </div>
 
@@ -2293,7 +2139,7 @@ function generatePoL() {
     <li>Apply knowledge of Hardware, CPU cycle and data representation (OCR J277 1.1 / AQA 3.1)</li>
     <li>Identify programming concepts, data structures and algorithms (OCR J277 2.1 / AQA 3.3)</li>
     <li>Recognise cybersecurity threats and countermeasures (OCR J277 1.3 / AQA 3.2)</li>
-    <li>Engage in competitive, timed retrieval practice to consolidate long-term memory</li><!-- Mahase J Design -->
+    <li>Engage in competitive, timed retrieval practice to consolidate long-term memory</li>
   </ul>
 
   <h2>GAMES USED IN THIS SESSION</h2>
@@ -2683,7 +2529,7 @@ const GS_KEY = 'cba_gs_url';
 const THEME_KEY = 'cba_theme';
 
 // ═══════════════════════════════════════════════
-// TEACHER CODE  <!-- Mahase J Design -->
+// TEACHER CODE  
 // ═══════════════════════════════════════════════
 // ═══════════════════════════════════════
 // SHARED STORAGE KEY (same as student file)
@@ -2752,23 +2598,20 @@ function tAnnounce(msg){
 async function tLoadData(){
   let all = [];
 
-  // Fetch from Sheets using JSONP - works from GitHub Pages and local files
+  // Fetch from Google Sheets - primary cross-device source
   if(gsUrl){
-    all = await new Promise(resolve => {
-      const cb = 'tCb_' + Date.now();
-      const s  = document.createElement('script');
-      const t  = setTimeout(() => { cleanup(); resolve([]); }, 8000);
-      function cleanup(){ clearTimeout(t); delete window[cb]; if(s.parentNode) s.parentNode.removeChild(s); }
-      window[cb] = function(data) {
-        cleanup();
-        if(data && data.status === 'ok' && Array.isArray(data.scores)){
-          tSetGsStatus('sheets'); resolve(data.scores);
-        } else { resolve([]); }
-      };
-      s.onerror = () => { cleanup(); tSetGsStatus('err'); resolve([]); };
-      s.src = gsUrl + '?action=getScores&callback=' + cb + '&t=' + Date.now();
-      document.head.appendChild(s);
-    });
+    try {
+      const res = await fetch(gsUrl + '?action=getScores&t=' + Date.now(), {
+        method: 'GET',
+        cache: 'no-store'
+      });
+      const txt = await res.text();
+      const data = JSON.parse(txt);
+      if(data.status === 'ok' && Array.isArray(data.scores)){
+        all = data.scores;
+        tSetGsStatus('sheets');
+      }
+    } catch(e){ /* fall through to in-memory */ }
   }
 
   // Also add any in-memory scores from this device not yet in Sheets
@@ -2916,7 +2759,7 @@ function tRenderStats(){
   set_el('gb-net',      tLeaderboard.filter(e=>e.networkScore!=null).length);
   set_el('gb-py',       tLeaderboard.filter(e=>e.pythonScore!=null).length);
 }
-<!-- Mahase J Design -->
+
 // ── PYTHON TOPIC PROGRESS ──
 function tRenderPyProgress(){
   const el = document.getElementById('py-topics');
@@ -2936,7 +2779,7 @@ function tRenderPyProgress(){
 
 // ── GOOGLE SHEETS ──
 // ── TEACHER PIN ──
-const TEACHER_PIN = '2026'; // Change this to your preferred PIN
+const TEACHER_PIN = '1234'; // Change this to your preferred PIN
 function tPinPrompt(){
   const m=document.getElementById('pin-modal');
   if(m){ m.classList.add('open'); document.getElementById('pin-input').value=''; document.getElementById('pin-error').textContent=''; setTimeout(()=>document.getElementById('pin-input').focus(),100); }
@@ -2963,7 +2806,7 @@ function tPinNewTab(){
   }
 }
 function updateGsUiTeacher(){
-  tSetGsStatus('local');<!-- Mahase J Design -->
+  tSetGsStatus('local');
 }
 
 // ── EXPORT ──
@@ -3002,7 +2845,7 @@ async function tDoClear(){
   tLeaderboard = [];
   tRenderLB(); tRenderStats(); tRenderPyProgress();
 
-  // Clear the Google Sheet and wait for confirmation before resuming <!-- Mahase J Design -->
+  // Clear the Google Sheet and wait for confirmation before resuming
   if(gsUrl){
     try {
       // Try fetch first
@@ -3102,7 +2945,7 @@ function tGeneratePoL(){
     <h1>CORBY BUSINESS ACADEMY — COMPUTER SCIENCE DEPARTMENT</h1>
     <div class="sub">PROOF OF LEARNING — KEYWORD ARENA GCSE REVISION</div>
   </div>
-<!-- Mahase J Design -->
+
   <div class="grid">
     <div class="info-box"><div class="lbl">Teacher</div><div class="val">${teacher}</div></div>
     <div class="info-box"><div class="lbl">Class / Group</div><div class="val">${cls}</div></div>
@@ -3172,7 +3015,7 @@ function teacherInit() {
     }
   }, 80);
 }
-<!-- Mahase J Design -->
+
 // ── TAB SWITCHING ──
 function tShowTab(tab, btn) {
   const lbScroll = document.getElementById('lb-scroll');
