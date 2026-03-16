@@ -41,6 +41,14 @@ body.light .nc-tbar{opacity:.85;}
 body{transition:background .25s,color .25s;}
 .theme-toggle{font-family:'Share Tech Mono',monospace;font-size:.72rem;background:transparent;border:1px solid var(--border);color:var(--dim);cursor:pointer;padding:.3rem .75rem;white-space:nowrap;transition:all .18s;letter-spacing:.05em;}
 .theme-toggle:hover{border-color:var(--accent);color:var(--accent);}
+/* ── COLOUR FILTERS ── */
+.filter-overlay{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0;transition:opacity .3s;}
+body.filter-blue  .filter-overlay{background:rgba(173,216,230,0.25);opacity:1;}
+body.filter-green .filter-overlay{background:rgba(144,238,144,0.22);opacity:1;}
+.filter-btn{font-family:'Share Tech Mono',monospace;font-size:.68rem;padding:.28rem .65rem;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--dim);transition:all .18s;white-space:nowrap;}
+.filter-btn:hover{border-color:var(--accent);color:var(--accent);}
+.filter-btn.active-blue{background:rgba(100,149,237,.25);border-color:#6495ED;color:#6495ED;}
+.filter-btn.active-green{background:rgba(60,179,113,.2);border-color:#3CB371;color:#3CB371;}
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;}
 body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;min-height:100vh;overflow-x:hidden;}
@@ -595,6 +603,7 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
 </style>
 </head>
 <body>
+<div class="filter-overlay" id="filter-overlay"></div>
 
 <!-- ═══════════════ HOME ═══════════════ -->
 <div id="view-home">
@@ -659,6 +668,8 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
     <div style="display:flex;align-items:center;gap:.8rem;"><button class="home-back" onclick="showView('home')">← HOME</button><div class="g-logo">CBA <em>//</em> CS DEPT</div></div>
     <div style="display:flex;align-items:center;gap:.6rem;">
       <button class="theme-toggle" id="theme-btn-reg" onclick="toggleTheme()">☀ LIGHT MODE</button>
+      <button class="filter-btn" id="fb-blue-reg" onclick="setFilter('blue')" title="Blue tint — may help with reading">🔵</button>
+      <button class="filter-btn" id="fb-green-reg" onclick="setFilter('green')" title="Green tint — may reduce eye strain">🟢</button>
       <div class="g-meta">KEYWORD ARENA<br>GCSE REVISION HUB</div>
     </div>
   </div>
@@ -740,6 +751,8 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
     <div class="g-logo">CBA <em>//</em> CS DEPT</div>
     <div style="display:flex;align-items:center;gap:.6rem;">
       <button class="theme-toggle" id="theme-btn-main" onclick="toggleTheme()">☀ LIGHT MODE</button>
+      <button class="filter-btn" id="fb-blue-main" onclick="setFilter('blue')" title="Blue tint">🔵</button>
+      <button class="filter-btn" id="fb-green-main" onclick="setFilter('green')" title="Green tint">🟢</button>
       <div class="g-meta" id="main-meta">KEYWORD ARENA</div>
     </div>
   </div>
@@ -1257,100 +1270,115 @@ const KEYWORDS=[
 
 const QUIZ_Q=[
   {q:"What does CPU stand for?",opts:["Central Processing Unit","Core Power Unit","Computer Processing Unit","Central Program Utility"],ans:0,cat:"Hardware",exp:"The CPU is the brain of the computer, executing instructions."},
-  {q:"Which sorting algorithm works by repeatedly swapping adjacent elements?",opts:["Merge Sort","Quick Sort","Bubble Sort","Insertion Sort"],ans:2,cat:"Algorithms",exp:"Bubble Sort compares adjacent pairs and bubbles larger values to the end."},
-  {q:"What does RAM stand for?",opts:["Read Access Memory","Random Access Memory","Rapid Access Module","Read And Modify"],ans:1,cat:"Hardware",exp:"RAM is volatile temporary memory used while the computer runs."},
-  {q:"In binary, what is the decimal value of 1010?",opts:["8","10","12","6"],ans:1,cat:"Data",exp:"1010 = 8+0+2+0 = 10 in decimal."},
-  {q:"What network topology connects all devices to a central switch?",opts:["Ring","Mesh","Bus","Star"],ans:3,cat:"Networks",exp:"Star topology connects all devices to a central switch or hub."},
-  {q:"What is a network protocol?",opts:["A type of cable","A set of rules for data transmission","A network device","A firewall type"],ans:1,cat:"Networks",exp:"Protocols define how data is formatted, transmitted and received."},
-  {q:"Which data type holds only True or False?",opts:["Alphabet","Boolean","Integer","String"],ans:1,cat:"Programming",exp:"Boolean holds only True or False — essential in programming logic."},
-  {q:"What does a compiler do?",opts:["Runs code line by line","Translates high-level code to machine code at once","Manages memory","Connects to the internet"],ans:1,cat:"Systems",exp:"A compiler translates an entire program into machine code before execution."},
-  {q:"What does phishing mean in cybersecurity?",opts:["Scanning for open ports","Flooding a server","Tricking users into revealing sensitive data","Installing a virus via USB"],ans:2,cat:"Security",exp:"Phishing uses fake emails or websites to steal passwords and data."},
-  {q:"What is the FETCH stage of the CPU cycle?",opts:["Carrying out the instruction","Translating the instruction","Retrieving the next instruction from memory","Storing the result"],ans:2,cat:"Hardware",exp:"FETCH retrieves the next instruction from memory using the program counter."},
-  {q:"Which data structure uses LIFO?",opts:["Queue","Array","Stack","Linked List"],ans:2,cat:"Data Structures",exp:"A Stack works like a pile of plates — last in, first out."},
-  {q:"What is binary search?",opts:["Searching left to right","Halving the search space each time","Sorting then searching","Searching with a hash"],ans:1,cat:"Algorithms",exp:"Binary search works on sorted data, halving the search area each step."},
-  {q:"What is lossy compression?",opts:["Keeps all original data","Permanently discards some data","Encrypts file data","Compresses only metadata"],ans:1,cat:"Data",exp:"Lossy compression (e.g. JPEG, MP3) sacrifices data for smaller file size."},
-  {q:"What does a firewall do?",opts:["Speeds up network traffic","Stores passwords","Monitors and filters network traffic","Allocates IP addresses"],ans:2,cat:"Security",exp:"A firewall acts as a security barrier between trusted and untrusted networks."},
-  {q:"In OOP, what is a class?",opts:["A running program","A blueprint for creating objects","A type of variable","A network server"],ans:1,cat:"OOP",exp:"A class is a template defining the attributes and methods of objects."},
-  {q:"How many bits are in one byte?",opts:["4","16","2","8"],ans:3,cat:"Data",exp:"1 byte = 8 bits. A fundamental unit of digital storage."},
-  {q:"What does a router do?",opts:["Connects devices in the same network","Forwards data packets between different networks","Converts digital to analogue","Stores website files"],ans:1,cat:"Networks",exp:"Routers direct data packets between networks, choosing the best path."},
-  {q:"What best describes an algorithm?",opts:["A programming language","Step-by-step instructions to solve a problem","A type of chip","A storage method"],ans:1,cat:"Algorithms",exp:"An algorithm is a precise, finite sequence of steps for a specific problem."},
-  {q:"What is a variable?",opts:["A fixed value","A programming error","A named memory location that can store different values","A type of loop"],ans:2,cat:"Programming",exp:"Variables store data that may change during program execution."},
-  {q:"What is a PRIMARY KEY in a database?",opts:["Sorts records alphabetically","Uniquely identifies each record","Links to another database","Encrypts data"],ans:1,cat:"Databases",exp:"A primary key is a unique identifier for each row, preventing duplicates."},
-  {q:"What is lossless compression?",opts:["Some data is permanently lost","The file becomes larger","All original data can be perfectly restored","Only images can be compressed"],ans:2,cat:"Data",exp:"Lossless compression (e.g. PNG, ZIP) keeps all original data intact."},
-  {q:"What is cache memory for?",opts:["Long-term storage","Internet connection","Temporarily storing frequently used data for faster CPU access","Running the OS"],ans:2,cat:"Hardware",exp:"Cache is extremely fast memory near the CPU to reduce RAM access time."},
-  {q:"What does SQL stand for?",opts:["Sequential Query Language","Structured Query Language","System Queue Logic","Software Query Line"],ans:1,cat:"Databases",exp:"SQL is used to create, read, update and delete database data."},
-  {q:"What is inheritance in OOP?",opts:["Creating a new object","A child class acquiring properties from a parent class","Calling a function","Storing data in a variable"],ans:1,cat:"OOP",exp:"Inheritance lets a class reuse and extend code from another class."},
-  {q:"What is the purpose of an operating system?",opts:["Provide internet access","Manage hardware resources and provide services to programs","Store user files","Run only one program at a time"],ans:1,cat:"Systems",exp:"The OS manages CPU, memory, file systems and user interfaces."},
-  {q:"What is malware?",opts:["A network cable type","Software designed to damage or gain unauthorised access","A programming language","A database tool"],ans:1,cat:"Security",exp:"Malware includes viruses, worms, ransomware and spyware."},
-  {q:"What does debugging mean?",opts:["Writing new code","Compressing files","Finding and fixing errors in a program","Encrypting a program"],ans:2,cat:"Programming",exp:"Debugging is identifying and removing bugs (errors) from code."},
-  {q:"Which is an INPUT device?",opts:["Monitor","Printer","Keyboard","Speaker"],ans:2,cat:"Hardware",exp:"Input devices send data to the computer — the keyboard is the classic example."},
-  {q:"What does bandwidth mean in networking?",opts:["Physical cable length","Maximum rate of data transfer","Number of connected devices","IP address range"],ans:1,cat:"Networks",exp:"Bandwidth measures data transmitted per second, in Mbps or Gbps."},
-  {q:"What is packet switching?",opts:["Sending data in one large block","Breaking data into independently-routed packets","A network topology","Encrypting data before sending"],ans:1,cat:"Networks",exp:"Packet switching breaks data into packets, each routed independently."},
-  {q:"What does an interpreter do?",opts:["Compiles the whole program first","Translates and runs code line by line","Manages network traffic","Encrypts data"],ans:1,cat:"Systems",exp:"An interpreter translates and executes source code one line at a time."},
-  {q:"What is a queue data structure?",opts:["Last in first out","Random access","First in first out","Sorted order only"],ans:2,cat:"Data Structures",exp:"A queue is FIFO — like a line of people, first to join is first to leave."},
-  {q:"What does the DECODE stage of the CPU cycle do?",opts:["Fetches the instruction","Stores the result","Interprets what the instruction means","Sends data to RAM"],ans:2,cat:"Hardware",exp:"DECODE translates the fetched instruction so the CPU understands what to do."},
-  {q:"What is a two-dimensional array?",opts:["A list of characters","A table of values with rows and columns","A sorted list","A type of loop"],ans:1,cat:"Data Structures",exp:"A 2D array is like a grid or table, accessed using two index values."},
-  {q:"What is the purpose of an index in a database?",opts:["Encrypts data","Speeds up searching and sorting","Links tables together","Validates input"],ans:1,cat:"Databases",exp:"An index speeds up queries by creating a fast lookup structure on a column."},
-  {q:"What is abstraction in programming?",opts:["Writing detailed code","Hiding complexity and showing only necessary details","Sorting data","Compressing files"],ans:1,cat:"Programming",exp:"Abstraction hides unnecessary detail so programmers can focus on key functionality."},
-  {q:"What does ASCII stand for?",opts:["American Standard Code for Information Interchange","Automated System Code Interface","Applied Software Control Instruction","Advanced Standard Computer Interface"],ans:0,cat:"Data",exp:"ASCII maps characters to numbers so computers can store and transmit text."},
-  {q:"What is the difference between hardware and software?",opts:["Hardware is digital, software is analogue","Hardware is physical components, software is programs and data","Hardware runs faster","Software is cheaper"],ans:1,cat:"Hardware",exp:"Hardware is the physical machine; software is the instructions that run on it."},
-  {q:"What is a local variable?",opts:["Accessible from anywhere in a program","Only accessible within the function or block it is declared in","A variable stored on disk","A network address"],ans:1,cat:"Programming",exp:"Local variables only exist within their scope — the function or block they are in."},
-  {q:"What is the purpose of a foreign key in a database?",opts:["Encrypts a record","Links a record in one table to a record in another table","Speeds up searching","Sorts the table"],ans:1,cat:"Databases",exp:"A foreign key creates a relationship between two tables by referencing a primary key."},
-  {q:"Which generation of programming language is most like natural language?",opts:["1GL","2GL","3GL","4GL"],ans:3,cat:"Systems",exp:"4GLs (e.g. SQL) are closest to natural language and furthest from machine code."},
-  {q:"What is a denial of service (DoS) attack?",opts:["Stealing passwords","Flooding a server with requests to make it unavailable","Installing a backdoor","Intercepting data"],ans:1,cat:"Security",exp:"DoS overwhelms a server with traffic so it cannot respond to legitimate users."},
-  {q:"What is meant by data type?",opts:["How data is sorted","The category of data a variable can hold, e.g. integer, string","The size of a file","How data is encrypted"],ans:1,cat:"Programming",exp:"Data types define what kind of value a variable holds and what operations are valid."},
-  {q:"What is polymorphism in OOP?",opts:["An object having one fixed form","Different objects responding to the same method in different ways","Hiding data inside a class","Copying an object"],ans:1,cat:"OOP",exp:"Polymorphism means different classes can share method names but behave differently."},
-  {q:"What is encapsulation in OOP?",opts:["Sharing all data publicly","Bundling data and methods together and restricting direct access","Creating subclasses","Looping through objects"],ans:1,cat:"OOP",exp:"Encapsulation hides internal state and requires interaction through defined methods."},
-  {q:"What does a switch do in a network?",opts:["Connects different networks","Translates domain names","Directs data to the correct device within the same network using MAC addresses","Assigns IP addresses"],ans:2,cat:"Networks",exp:"A switch uses MAC addresses to forward frames only to the correct device on a LAN."},
-  {q:"What is the purpose of a truth table?",opts:["To store database records","To show all possible inputs and outputs of a Boolean expression","To plan a network layout","To sort data"],ans:1,cat:"Algorithms",exp:"Truth tables list every combination of inputs and the resulting Boolean output."},
-  {q:"What is hexadecimal?",opts:["Base 2 number system","Base 8 number system","Base 10 number system","Base 16 number system"],ans:3,cat:"Data",exp:"Hexadecimal (hex) uses 16 symbols: 0-9 and A-F. Widely used in computing."},
-  {q:"What is the fetch-decode-execute cycle?",opts:["The boot sequence of a computer","The process a CPU uses to carry out instructions","The steps to encrypt data","The process of compiling code"],ans:1,cat:"Hardware",exp:"The FDE cycle is the continuous process by which the CPU processes instructions."},
-  {q:"What is a relational database?",opts:["A database stored on a single table","A database that organises data into linked tables","A database that only stores numbers","A database stored in the cloud"],ans:1,cat:"Databases",exp:"Relational databases store data in related tables linked by keys."},
-  {q:"What does DRY stand for in programming?",opts:["Delete Repeated Yields","Data Retrieval Yield","Do not Repeat Yourself","Direct Runtime Yes"],ans:2,cat:"Programming",exp:"DRY is a principle: avoid duplicating code by using functions and reusable components."},
-  {q:"What is a subroutine?",opts:["A type of variable","A named block of code that can be called and reused","A database query","A network address"],ans:1,cat:"Programming",exp:"Subroutines (functions/procedures) are reusable named blocks of code."},
-];
+  {q:"Which sort repeatedly swaps adjacent elements?",opts:["Merge Sort","Bubble Sort","Quick Sort","Insertion Sort"],ans:1,cat:"Algorithms",exp:"Bubble Sort compares adjacent pairs and bubbles larger values to the end."},
+  {q:"What does RAM stand for?",opts:["Rapid Access Module","Read And Modify","Random Access Memory","Read Access Memory"],ans:2,cat:"Hardware",exp:"RAM is volatile temporary memory used while the computer runs."},
+  {q:"What is the decimal value of binary 1010?",opts:["8","12","6","10"],ans:3,cat:"Data",exp:"1010 = 8+0+2+0 = 10 in decimal."},
+  {q:"What is the decimal value of binary 1111?",opts:["15","14","16","13"],ans:0,cat:"Data",exp:"1111 = 8+4+2+1 = 15."},
+  {q:"What is binary 0110 in decimal?",opts:["4","6","8","5"],ans:1,cat:"Data",exp:"0110 = 0+4+2+0 = 6."},
+  {q:"What is the hexadecimal value of decimal 255?",opts:["EE","FE","FF","EF"],ans:2,cat:"Data",exp:"255 = 16×15 + 15 = FF in hexadecimal."},
+  {q:"What is hex A in decimal?",opts:["9","11","12","10"],ans:3,cat:"Data",exp:"Hex A = 10 in decimal. Hex uses A-F for values 10-15."},
+  {q:"What is hex F in decimal?",opts:["15","14","16","13"],ans:0,cat:"Data",exp:"Hex F = 15. The hex digits A-F represent 10-15."},
+  {q:"Convert hex 1A to decimal.",opts:["28","26","24","30"],ans:1,cat:"Data",exp:"1A = 1×16 + 10 = 26."},
+  {q:"Convert hex 2F to decimal.",opts:["45","48","47","43"],ans:2,cat:"Data",exp:"2F = 2×16 + 15 = 47."},
+  {q:"How many bits in a byte?",opts:["4","16","2","8"],ans:3,cat:"Data",exp:"1 byte = 8 bits."},
+  {q:"How many bytes in a kilobyte?",opts:["1024","100","512","2048"],ans:0,cat:"Data",exp:"1 KB = 1024 bytes."},
+  {q:"What is binary 1000 in decimal?",opts:["6","8","4","10"],ans:1,cat:"Data",exp:"1000 = 8+0+0+0 = 8."},
+  {q:"Add binary 0011 + 0101.",opts:["0111","1001","1000","0110"],ans:2,cat:"Data",exp:"0011 + 0101 = 1000 (3+5=8)."},
+  {q:"What network topology uses a central switch?",opts:["Ring","Mesh","Bus","Star"],ans:3,cat:"Networks",exp:"Star topology connects all devices to a central switch or hub."},
+  {q:"What is a network protocol?",opts:["Rules for data transmission","A type of cable","A security device","A routing table"],ans:0,cat:"Networks",exp:"Protocols define how data is formatted, transmitted and received."},
+  {q:"Which data type is True or False?",opts:["Integer","Boolean","String","Float"],ans:1,cat:"Programming",exp:"Boolean holds only True or False."},
+  {q:"What does a compiler do?",opts:["Runs code line by line","Links libraries together","Translates whole program to machine code","Manages memory allocation"],ans:2,cat:"Systems",exp:"A compiler translates an entire program into machine code before execution."},
+  {q:"What does phishing mean?",opts:["Port scanning","Server flooding","Installing spyware","Tricking users for data"],ans:3,cat:"Security",exp:"Phishing uses fake emails or websites to steal passwords and data."},
+  {q:"What is the FETCH stage of the CPU?",opts:["Get next instruction from memory","Carry out instruction","Translate instruction","Store result in register"],ans:0,cat:"Hardware",exp:"FETCH retrieves the next instruction from memory using the program counter."},
+  {q:"Which structure uses LIFO?",opts:["Queue","Stack","Array","Graph"],ans:1,cat:"Data Structures",exp:"A Stack is Last In First Out — like a pile of plates."},
+  {q:"How does binary search work?",opts:["Left to right scan","Hash table lookup","Halves search space each step","Jumps random indexes"],ans:2,cat:"Algorithms",exp:"Binary search halves the search area each step — requires sorted data."},
+  {q:"What is lossy compression?",opts:["Keeps all data intact","Encrypts file contents","Splits file into parts","Permanently removes some data"],ans:3,cat:"Data",exp:"Lossy compression (e.g. JPEG, MP3) discards some data to reduce file size."},
+  {q:"What does a firewall do?",opts:["Monitors and filters network traffic","Speeds up traffic","Assigns IP addresses","Stores passwords securely"],ans:0,cat:"Security",exp:"A firewall monitors connections and blocks those not meeting security rules."},
+  {q:"In OOP, what is a class?",opts:["A running process","A blueprint for objects","A type of variable","A network address"],ans:1,cat:"OOP",exp:"A class is a template defining the attributes and methods of objects."},
+  {q:"What does a router do?",opts:["Connects same-network devices","Assigns MAC addresses","Forwards packets between networks","Converts analogue signals"],ans:2,cat:"Networks",exp:"Routers direct data packets between networks, choosing the best path."},
+  {q:"What best describes an algorithm?",opts:["A programming language","A type of processor","A storage method","Step-by-step problem solution"],ans:3,cat:"Algorithms",exp:"An algorithm is a precise, finite sequence of steps for a specific problem."},
+  {q:"What is a variable?",opts:["A named store for changeable data","A fixed constant","A loop construct","A type of function"],ans:0,cat:"Programming",exp:"Variables store data that may change during program execution."},
+  {q:"What is a PRIMARY KEY?",opts:["Sorts records alphabetically","Uniquely identifies each record","Encrypts database rows","Links to another table"],ans:1,cat:"Databases",exp:"A primary key uniquely identifies each row, preventing duplicates."},
+  {q:"What is lossless compression?",opts:["Discards some data","Increases file size","All original data restored","Only compresses images"],ans:2,cat:"Data",exp:"Lossless compression (e.g. PNG, ZIP) keeps all original data intact."},
+  {q:"What is cache memory?",opts:["Long-term disk storage","Network buffer memory","Operating system storage","Very fast CPU-side memory"],ans:3,cat:"Hardware",exp:"Cache is extremely fast memory near the CPU to reduce RAM access time."},
+  {q:"What does SQL stand for?",opts:["Structured Query Language","System Queue Logic","Standard Query Language","Sequential Query Logic"],ans:0,cat:"Databases",exp:"SQL is used to create, read, update and delete database data."},
+  {q:"What is inheritance in OOP?",opts:["Calling a method","Child class gets parent properties","Creating a new object","Storing a variable"],ans:1,cat:"OOP",exp:"Inheritance lets a class reuse and extend code from another class."},
+  {q:"Purpose of an operating system?",opts:["Provide internet access","Run only one program","Manage hardware and run programs","Store all user files"],ans:2,cat:"Systems",exp:"The OS manages CPU, memory, file systems and user interfaces."},
+  {q:"What is malware?",opts:["A network cable type","A database language","A programming framework","Unauthorised damaging software"],ans:3,cat:"Security",exp:"Malware includes viruses, worms, ransomware and spyware."},
+  {q:"What does debugging mean?",opts:["Finding and fixing errors","Writing new code","Compressing program files","Encrypting source code"],ans:0,cat:"Programming",exp:"Debugging is identifying and removing bugs (errors) from code."},
+  {q:"Which is an INPUT device?",opts:["Monitor","Keyboard","Printer","Speaker"],ans:1,cat:"Hardware",exp:"Input devices send data to the computer."},
+  {q:"What does bandwidth mean?",opts:["Physical cable length","Number of devices","Maximum data transfer rate","IP address range"],ans:2,cat:"Networks",exp:"Bandwidth measures data transmitted per second, in Mbps or Gbps."},
+  {q:"What is packet switching?",opts:["Sending one large block","A network topology","Encrypting data first","Breaking data into routed packets"],ans:3,cat:"Networks",exp:"Packet switching breaks data into packets, each routed independently."},
+  {q:"What does an interpreter do?",opts:["Translates and runs code line by line","Compiles whole program first","Manages network traffic","Encrypts source files"],ans:0,cat:"Systems",exp:"An interpreter translates and executes source code one line at a time."},
+  {q:"What is a queue data structure?",opts:["Last in first out","First in first out","Random access order","Sorted order always"],ans:1,cat:"Data Structures",exp:"A queue is FIFO — like a line of people, first to join is first to leave."},
+  {q:"What does DECODE do in CPU cycle?",opts:["Fetches instruction","Stores result","Interprets the instruction","Sends to RAM"],ans:2,cat:"Hardware",exp:"DECODE translates the fetched instruction so the CPU knows what to do."},
+  {q:"What is abstraction?",opts:["Writing detailed code","Sorting data efficiently","Compressing files smaller","Hiding complexity, showing essentials"],ans:3,cat:"Programming",exp:"Abstraction hides unnecessary detail so programmers focus on key functionality."},
+  {q:"What does ASCII do?",opts:["Maps characters to numbers","Sorts database records","Compresses image files","Encrypts network traffic"],ans:0,cat:"Data",exp:"ASCII maps characters to numbers so computers can store and transmit text."},
+  {q:"What is encapsulation in OOP?",opts:["Sharing all data publicly","Bundling data with restricted access","Looping through objects","Creating subclasses"],ans:1,cat:"OOP",exp:"Encapsulation hides internal state and requires interaction through defined methods."},
+  {q:"What does a switch do in a network?",opts:["Connects different networks","Translates domain names","Directs data to correct device on LAN","Assigns IP addresses"],ans:2,cat:"Networks",exp:"A switch uses MAC addresses to forward frames only to the correct device."},
+  {q:"What is a truth table for?",opts:["Store database records","Plan a network layout","Sort data efficiently","Show all Boolean input/output combos"],ans:3,cat:"Algorithms",exp:"Truth tables list every combination of inputs and the resulting Boolean output."},
+  {q:"What is hexadecimal?",opts:["Base 16 number system","Base 2 number system","Base 8 number system","Base 10 number system"],ans:0,cat:"Data",exp:"Hexadecimal uses 16 symbols: 0-9 and A-F. Widely used in computing."},
+  {q:"What is a relational database?",opts:["Single flat table","Tables linked by keys","Cloud-only database","Numbers-only database"],ans:1,cat:"Databases",exp:"Relational databases store data in related tables linked by keys."},
+  {q:"What does DRY mean in programming?",opts:["Delete Repeated Yields","Data Retrieval Yield","Do Not Repeat Yourself","Direct Runtime Yes"],ans:2,cat:"Programming",exp:"DRY: avoid duplicating code by using functions and reusable components."},
+  {q:"What is a subroutine?",opts:["A type of variable","A database query","A network address","A reusable named code block"],ans:3,cat:"Programming",exp:"Subroutines (functions/procedures) are reusable named blocks of code."},
+  {q:"What is the fetch-decode-execute cycle?",opts:["How the CPU processes instructions","Boot sequence of a computer","Steps to encrypt data","Process of compiling code"],ans:0,cat:"Hardware",exp:"The FDE cycle is the continuous process by which the CPU processes instructions."},
+
+  {q:"What is binary 1100 in decimal?",opts:["10","12","14","8"],ans:1,cat:"Data",exp:"1100 = 8+4+0+0 = 12."},
+  {q:"What is decimal 13 in binary?",opts:["1011","1110","1101","1010"],ans:2,cat:"Data",exp:"13 = 8+4+1 = 1101 in binary."},
+  {q:"What is hex B in decimal?",opts:["10","12","13","11"],ans:3,cat:"Data",exp:"Hex B = 11. A=10, B=11, C=12, D=13, E=14, F=15."},
+  {q:"What is hex 1F in decimal?",opts:["31","30","29","33"],ans:0,cat:"Data",exp:"1F = 1×16 + 15 = 31."},
+  {q:"Convert decimal 200 to hex.",opts:["B8","C8","C6","CA"],ans:1,cat:"Data",exp:"200 = 12×16 + 8 = C8 in hex."},
+  {q:"What is binary 11111111 in decimal?",opts:["254","256","255","253"],ans:2,cat:"Data",exp:"11111111 = 128+64+32+16+8+4+2+1 = 255."},
+  {q:"What is decimal 16 in binary?",opts:["00100000","00001111","00010001","00010000"],ans:3,cat:"Data",exp:"16 = 00010000 in 8-bit binary."},
+  {q:"Why is hex used in computing?",opts:["Represents binary compactly","Faster than binary","Computers run on hex","Uses fewer transistors"],ans:0,cat:"Data",exp:"Each hex digit represents exactly 4 bits, making binary easier to read."},
+  {q:"How many hex digits make one byte?",opts:["4","2","8","1"],ans:1,cat:"Data",exp:"One byte = 8 bits = 2 hex digits (e.g. FF = 11111111)."},
+  {q:"What is 0111 + 0001 in binary?",opts:["0111","1001","1000","1010"],ans:2,cat:"Data",exp:"0111 + 0001 = 1000 (7+1=8). Watch the carry bits."},
+  {q:"What is hex C in decimal?",opts:["10","11","13","12"],ans:3,cat:"Data",exp:"Hex C = 12. Remember A=10 through F=15."},
+  {q:"Convert binary 10101010 to hex.",opts:["AA","BB","A0","AB"],ans:0,cat:"Data",exp:"1010=A, 1010=A, so 10101010 = AA in hex."},
+  {q:"What is the decimal value of hex 3C?",opts:["54","60","62","58"],ans:1,cat:"Data",exp:"3C = 3×16 + 12 = 48+12 = 60."},
+  {q:"What is 8-bit binary 01000001?",opts:["66","64","65","63"],ans:2,cat:"Data",exp:"01000001 = 64+1 = 65. This is also the ASCII code for 'A'."},];
 
 const NC_Q=[
-  {q:"What is a computer network?",opts:["A single powerful computer","Two or more computers connected to share resources","A type of operating system","A programming language"],ans:1,cat:"Network Fundamentals",exp:"A network is two or more connected devices that can share data and resources."},
-  {q:"What does LAN stand for?",opts:["Large Area Network","Local Access Node","Local Area Network","Linked Application Node"],ans:2,cat:"Network Types",exp:"LAN = Local Area Network — covers a small area like a school or office."},
-  {q:"What does WAN stand for?",opts:["Wide Area Network","Wireless Access Node","Web Application Network","Wired Area Node"],ans:0,cat:"Network Types",exp:"WAN = Wide Area Network — covers a large geographic area, like the internet."},
-  {q:"Which device forwards data packets between different networks?",opts:["Switch","Hub","Router","Repeater"],ans:2,cat:"Network Hardware",exp:"A router routes data packets between different networks, choosing the best path."},
-  {q:"What is the purpose of a switch?",opts:["Connects different networks","Connects devices in the same network using MAC addresses","Assigns IP addresses","Translates domain names"],ans:1,cat:"Network Hardware",exp:"A switch connects devices in the same LAN using MAC addresses."},
+  {q:"What is a computer network?",opts:["Two or more computers connected to share resources","A single powerful computer","A type of operating system","A programming language"],ans:0,cat:"Network Fundamentals",exp:"A network is two or more connected devices that can share data and resources."},
+  {q:"What does LAN stand for?",opts:["Large Area Network","Local Area Network","Local Access Node","Linked Application Node"],ans:1,cat:"Network Types",exp:"LAN = Local Area Network — covers a small area like a school or office."},
+  {q:"What does WAN stand for?",opts:["Wireless Access Node","Web Application Network","Wide Area Network","Wired Area Node"],ans:2,cat:"Network Types",exp:"WAN = Wide Area Network — covers a large geographic area, like the internet."},
+  {q:"Which device forwards data packets between different networks?",opts:["Switch","Hub","Repeater","Router"],ans:3,cat:"Network Hardware",exp:"A router routes data packets between different networks, choosing the best path."},
+  {q:"What is the purpose of a switch?",opts:["Connects devices in the same network using MAC addresses","Connects different networks","Assigns IP addresses","Translates domain names"],ans:0,cat:"Network Hardware",exp:"A switch connects devices in the same LAN using MAC addresses."},
   {q:"What is bandwidth?",opts:["Delay in data transmission","Maximum rate of data transfer","Distance data travels","Number of devices on a network"],ans:1,cat:"Network Performance",exp:"Bandwidth is the maximum data transmitted per second, in Mbps or Gbps."},
-  {q:"What is latency?",opts:["Speed of a router","Delay between sending and receiving data","Number of packets sent","Encryption strength"],ans:1,cat:"Network Performance",exp:"Latency is the delay (lag) between a request being sent and response arriving."},
+  {q:"What is latency?",opts:["Speed of a router","Number of packets sent","Delay between sending and receiving data","Encryption strength"],ans:2,cat:"Network Performance",exp:"Latency is the delay (lag) between a request being sent and response arriving."},
   {q:"Which topology connects ALL devices to a single central switch?",opts:["Ring","Mesh","Bus","Star"],ans:3,cat:"Network Topologies",exp:"In Star topology, all devices connect to a central switch or hub."},
-  {q:"What is a disadvantage of Star topology?",opts:["If one cable fails all lose connection","If the central switch fails all lose connection","Devices cannot communicate","It is the slowest"],ans:1,cat:"Network Topologies",exp:"If the central switch fails in Star topology, the whole network goes down."},
-  {q:"What happens if the Bus topology backbone cable fails?",opts:["One device loses connection","Network slows slightly","Entire network fails","Backup cable activates"],ans:2,cat:"Network Topologies",exp:"In Bus topology, all devices share one backbone — if it fails, all stop."},
-  {q:"What is a network protocol?",opts:["A type of cable","A set of rules for how data is transmitted","A security device","A type of IP address"],ans:1,cat:"Protocols",exp:"A protocol is a set of agreed rules for how devices communicate."},
-  {q:"What does HTTP stand for?",opts:["HyperText Transfer Protocol","High Traffic Transfer Process","HyperText Translation Program","Host Transfer Protocol"],ans:0,cat:"Protocols",exp:"HTTP defines how web pages are requested and sent over the internet."},
-  {q:"What is the difference between HTTP and HTTPS?",opts:["HTTPS is faster","HTTPS uses encryption to secure data","HTTPS only works on mobile","HTTP uses more bandwidth"],ans:1,cat:"Protocols",exp:"HTTPS adds SSL/TLS encryption to HTTP, securing data in transit."},
+  {q:"What is a disadvantage of Star topology?",opts:["If the central switch fails all lose connection","If one cable fails all lose connection","Devices cannot communicate","It is the slowest"],ans:0,cat:"Network Topologies",exp:"If the central switch fails in Star topology, the whole network goes down."},
+  {q:"What happens if the Bus topology backbone cable fails?",opts:["One device loses connection","Entire network fails","Network slows slightly","Backup cable activates"],ans:1,cat:"Network Topologies",exp:"In Bus topology, all devices share one backbone — if it fails, all stop."},
+  {q:"What is a network protocol?",opts:["A type of cable","A security device","A set of rules for how data is transmitted","A type of IP address"],ans:2,cat:"Protocols",exp:"A protocol is a set of agreed rules for how devices communicate."},
+  {q:"What does HTTP stand for?",opts:["High Traffic Transfer Process","HyperText Translation Program","Host Transfer Protocol","HyperText Transfer Protocol"],ans:3,cat:"Protocols",exp:"HTTP defines how web pages are requested and sent over the internet."},
+  {q:"What is the difference between HTTP and HTTPS?",opts:["HTTPS uses encryption to secure data","HTTPS is faster","HTTPS only works on mobile","HTTP uses more bandwidth"],ans:0,cat:"Protocols",exp:"HTTPS adds SSL/TLS encryption to HTTP, securing data in transit."},
   {q:"What does FTP stand for?",opts:["Fast Transfer Protocol","File Transfer Protocol","Frame Transfer Protocol","Firewall Transfer Protocol"],ans:1,cat:"Protocols",exp:"FTP (File Transfer Protocol) transfers files between a client and server."},
-  {q:"What does SMTP stand for?",opts:["Simple Mail Transfer Protocol","Secure Message Transfer Program","Standard Mail Transmission Protocol","Simple Media Transfer Protocol"],ans:0,cat:"Protocols",exp:"SMTP is used for sending emails between mail servers."},
-  {q:"What protocol keeps emails stored server-side?",opts:["SMTP","POP3","IMAP","FTP"],ans:2,cat:"Protocols",exp:"IMAP keeps emails on the server — good for accessing from multiple devices."},
-  {q:"What does DNS stand for?",opts:["Dynamic Network System","Domain Name System","Data Node Service","Distributed Network Syntax"],ans:1,cat:"Protocols",exp:"DNS = Domain Name System — translates domain names into IP addresses."},
+  {q:"What does SMTP stand for?",opts:["Secure Message Transfer Program","Standard Mail Transmission Protocol","Simple Mail Transfer Protocol","Simple Media Transfer Protocol"],ans:2,cat:"Protocols",exp:"SMTP is used for sending emails between mail servers."},
+  {q:"What protocol keeps emails stored server-side?",opts:["SMTP","POP3","FTP","IMAP"],ans:3,cat:"Protocols",exp:"IMAP keeps emails on the server — good for accessing from multiple devices."},
+  {q:"What does DNS stand for?",opts:["Domain Name System","Dynamic Network System","Data Node Service","Distributed Network Syntax"],ans:0,cat:"Protocols",exp:"DNS = Domain Name System — translates domain names into IP addresses."},
   {q:"What does DNS do?",opts:["Assigns IP addresses","Translates domain names to IP addresses","Encrypts web traffic","Manages email"],ans:1,cat:"Protocols",exp:"DNS acts like a phone book for the internet, converting URLs to IPs."},
-  {q:"What does TCP do in TCP/IP?",opts:["Routes packets between networks","Breaks data into packets and ensures reliable delivery","Encrypts data","Assigns IP addresses"],ans:1,cat:"Protocols",exp:"TCP divides data into packets, numbers them, and ensures correct delivery."},
+  {q:"What does TCP do in TCP/IP?",opts:["Routes packets between networks","Encrypts data","Breaks data into packets and ensures reliable delivery","Assigns IP addresses"],ans:2,cat:"Protocols",exp:"TCP divides data into packets, numbers them, and ensures correct delivery."},
   {q:"How many bits are in an IPv4 address?",opts:["16","64","128","32"],ans:3,cat:"IP Addressing",exp:"IPv4 uses 32-bit addresses, written as four groups (e.g. 192.168.1.1)."},
-  {q:"Why was IPv6 introduced?",opts:["To make internet faster","Because IPv4 addresses were running out","To improve security","To replace DNS"],ans:1,cat:"IP Addressing",exp:"IPv4 ran out of addresses. IPv6 uses 128 bits, providing vastly more."},
+  {q:"Why was IPv6 introduced?",opts:["Because IPv4 addresses were running out","To make internet faster","To improve security","To replace DNS"],ans:0,cat:"IP Addressing",exp:"IPv4 ran out of addresses. IPv6 uses 128 bits, providing vastly more."},
   {q:"What is a firewall?",opts:["A physical wall protecting servers","Monitors and filters network traffic based on rules","A type of antivirus","A network cable type"],ans:1,cat:"Network Security",exp:"A firewall monitors connections and blocks those not meeting security rules."},
-  {q:"What attack floods a server to make it unavailable?",opts:["Phishing","Man-in-the-Middle","SQL Injection","Denial of Service (DoS)"],ans:3,cat:"Network Security",exp:"DoS overwhelms a server with traffic so it cannot respond to legitimate users."},
-  {q:"What is a Man-in-the-Middle attack?",opts:["Hacking a server directly","Intercepting communications between two parties","Flooding a network","Installing malware via email"],ans:1,cat:"Network Security",exp:"MITM: attacker secretly intercepts or alters data between two parties."},
-  {q:"What does SSL/TLS do in HTTPS?",opts:["Speeds up transfer","Compresses pages","Encrypts data between browser and server","Assigns IP addresses"],ans:2,cat:"Network Security",exp:"SSL/TLS encrypts the connection, shown by the padlock in browsers."},
+  {q:"What attack floods a server to make it unavailable?",opts:["Phishing","Man-in-the-Middle","Denial of Service (DoS)","SQL Injection"],ans:2,cat:"Network Security",exp:"DoS overwhelms a server with traffic so it cannot respond to legitimate users."},
+  {q:"What is a Man-in-the-Middle attack?",opts:["Hacking a server directly","Flooding a network","Installing malware via email","Intercepting communications between two parties"],ans:3,cat:"Network Security",exp:"MITM: attacker secretly intercepts or alters data between two parties."},
+  {q:"What does SSL/TLS do in HTTPS?",opts:["Encrypts data between browser and server","Speeds up transfer","Compresses pages","Assigns IP addresses"],ans:0,cat:"Network Security",exp:"SSL/TLS encrypts the connection, shown by the padlock in browsers."},
   {q:"What is a packet?",opts:["A complete message in one piece","A small unit of data broken from a larger message","A type of cable","An IP address range"],ans:1,cat:"Packet Switching",exp:"Data is split into packets for transmission and reassembled at destination."},
-  {q:"What is packet switching?",opts:["Sending all data in one block","Breaking data into independently-routed packets","A type of topology","Encrypting data"],ans:1,cat:"Packet Switching",exp:"Packet switching routes packets independently — efficient and resilient."},
-  {q:"What is the World Wide Web?",opts:["Another name for the internet","A system of interlinked web pages accessed via HTTP","A network hardware type","A wireless standard"],ans:1,cat:"The Internet",exp:"The Web is a service ON the internet — web pages linked by hyperlinks."},
-  {q:"What does WiFi use to transmit data?",opts:["Electrical signals through copper","Radio waves","Light through fibre","Satellite signals"],ans:1,cat:"Wireless Networks",exp:"WiFi uses radio waves (2.4GHz or 5GHz) to transmit data wirelessly."},
+  {q:"What is packet switching?",opts:["Sending all data in one block","A type of topology","Breaking data into independently-routed packets","Encrypting data"],ans:2,cat:"Packet Switching",exp:"Packet switching routes packets independently — efficient and resilient."},
+  {q:"What is the World Wide Web?",opts:["Another name for the internet","A network hardware type","A wireless standard","A system of interlinked web pages accessed via HTTP"],ans:3,cat:"The Internet",exp:"The Web is a service ON the internet — web pages linked by hyperlinks."},
+  {q:"What does WiFi use to transmit data?",opts:["Radio waves","Electrical signals through copper","Light through fibre","Satellite signals"],ans:0,cat:"Wireless Networks",exp:"WiFi uses radio waves (2.4GHz or 5GHz) to transmit data wirelessly."},
   {q:"What is cloud computing?",opts:["Storing data in the atmosphere","Accessing computing resources over the internet","A wireless network standard","A type of topology"],ans:1,cat:"Cloud and Services",exp:"Cloud computing delivers services (storage, software, processing) over the internet."},
-  {q:"What does IP stand for in TCP/IP?",opts:["Internet Protocol","Information Package","Internal Process","Interconnected Path"],ans:0,cat:"Protocols",exp:"IP (Internet Protocol) handles the addressing and routing of packets."},
-  {q:"What is a MAC address?",opts:["A software licence","A unique hardware identifier for a network device","A type of encryption","A wireless frequency"],ans:1,cat:"Network Hardware",exp:"A MAC address is a unique identifier burned into a network interface card."},
-  {q:"What is a VPN?",opts:["A type of virus","A Virtual Private Network that encrypts and tunnels internet traffic","A wireless router","A database protocol"],ans:1,cat:"Network Security",exp:"A VPN creates an encrypted tunnel so data cannot be intercepted in transit."},
+  {q:"What does IP stand for in TCP/IP?",opts:["Information Package","Internal Process","Internet Protocol","Interconnected Path"],ans:2,cat:"Protocols",exp:"IP (Internet Protocol) handles the addressing and routing of packets."},
+  {q:"What is a MAC address?",opts:["A software licence","A type of encryption","A wireless frequency","A unique hardware identifier for a network device"],ans:3,cat:"Network Hardware",exp:"A MAC address is a unique identifier burned into a network interface card."},
+  {q:"What is a VPN?",opts:["A Virtual Private Network that encrypts and tunnels internet traffic","A type of virus","A wireless router","A database protocol"],ans:0,cat:"Network Security",exp:"A VPN creates an encrypted tunnel so data cannot be intercepted in transit."},
   {q:"What is the difference between a hub and a switch?",opts:["They are identical","A hub sends data to all devices, a switch sends only to the correct device","A switch is slower","A hub uses IP addresses"],ans:1,cat:"Network Hardware",exp:"A switch uses MAC addresses to direct frames; a hub blindly broadcasts to all ports."},
-  {q:"What does POP3 do?",opts:["Sends emails","Downloads emails from server to local device, often deleting them from server","Encrypts email","Routes email between servers"],ans:1,cat:"Protocols",exp:"POP3 downloads emails to your device. Unlike IMAP, it typically removes them from the server."},
-  {q:"What is a network topology?",opts:["The speed of a network","The physical or logical arrangement of devices in a network","The number of users","The encryption standard used"],ans:1,cat:"Network Topologies",exp:"Topology describes how devices are arranged and connected in a network."},
-  {q:"Which topology offers the most redundancy?",opts:["Bus","Star","Ring","Mesh"],ans:3,cat:"Network Topologies",exp:"Mesh topology connects every device to every other device, providing multiple paths."},
+  {q:"What does POP3 do?",opts:["Sends emails","Encrypts email","Downloads emails from server to local device, often deleting them from server","Routes email between servers"],ans:2,cat:"Protocols",exp:"POP3 downloads emails to your device. Unlike IMAP, it typically removes them from the server."},
+  {q:"What is a network topology?",opts:["The speed of a network","The number of users","The encryption standard used","The physical or logical arrangement of devices in a network"],ans:3,cat:"Network Topologies",exp:"Topology describes how devices are arranged and connected in a network."},
+  {q:"Which topology offers the most redundancy?",opts:["Mesh","Bus","Star","Ring"],ans:0,cat:"Network Topologies",exp:"Mesh topology connects every device to every other device, providing multiple paths."},
   {q:"What is the role of a proxy server?",opts:["Assigns IP addresses","Acts as an intermediary between client and internet, providing caching and filtering","Encrypts all traffic","Stores website files"],ans:1,cat:"Network Hardware",exp:"A proxy server sits between clients and the internet, filtering requests and caching content."},
-  {q:"What does HTTPS port 443 mean?",opts:["The file size limit","The standard port number used for HTTPS connections","The maximum number of users","The encryption key length"],ans:1,cat:"Protocols",exp:"Port 443 is the standard port for HTTPS. Port 80 is used for HTTP."},
-  {q:"What is a subnet?",opts:["A type of virus","A logical subdivision of a network","A wireless standard","A database index"],ans:1,cat:"IP Addressing",exp:"Subnets divide a larger network into smaller segments for organisation and security."},
+  {q:"What does HTTPS port 443 mean?",opts:["The file size limit","The maximum number of users","The standard port number used for HTTPS connections","The encryption key length"],ans:2,cat:"Protocols",exp:"Port 443 is the standard port for HTTPS. Port 80 is used for HTTP."},
+  {q:"What is a subnet?",opts:["A type of virus","A wireless standard","A database index","A logical subdivision of a network"],ans:3,cat:"IP Addressing",exp:"Subnets divide a larger network into smaller segments for organisation and security."},
 ];
 
 // ═══════════════════════════════════════════════════════════
@@ -1364,8 +1392,8 @@ const store = {
 };
 
 let player = {name:'', cls:'', session:''};
-let leaderboard = JSON.parse(store.get('cba_arena_lb') || '[]');
-const HARDCODED_GS_URL = 'https://script.google.com/macros/s/AKfycbzvq2l4qwDNoYiS8UcBAIocE0mKaGYLptV6yk-LpI_M8kjPyihIrFNM6Q9tcx6r8Mic8A/exec';
+let leaderboard = (() => { try { return JSON.parse(store.get('cba_arena_lb') || '[]'); } catch(e) { store.del('cba_arena_lb'); return []; } })();
+const HARDCODED_GS_URL = 'https://script.google.com/macros/s/AKfycbwQUuTS2eWuKET4v1s377C-5xaRZ4RiKhezrVpsReBr_DEGPuk0YRkiuKpeFdz7DUdq4g/exec';
 store.del('cba_gs_url');
 let gsUrl = HARDCODED_GS_URL;
 
@@ -1489,21 +1517,28 @@ async function renderLB() {
   if (!el) return;
   el.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--dim);font-family:Share Tech Mono,monospace;font-size:.78rem;">Loading scores…</div>';
 
-  // Fetch all scores from Sheets so all students appear
-  let allScores = [...leaderboard]; // start with in-memory
+  // Fetch all scores from Sheets using JSONP (works from GitHub Pages, local files, everywhere)
+  let allScores = [...leaderboard];
   if (gsUrl) {
-    try {
-      const res  = await fetch(gsUrl + '?action=getScores&t=' + Date.now());
-      const data = await res.json();
-      if (data.status === 'ok' && Array.isArray(data.scores)) {
-        // Merge: add Sheets scores not already in memory
-        data.scores.forEach(s => {
-          if (!allScores.some(m => m.name===s.name && m.date===s.date && m.game===s.game)) {
-            allScores.push(s);
-          }
-        });
-      }
-    } catch(e) { /* use in-memory only */ }
+    allScores = await new Promise(resolve => {
+      const cb = 'lbCb_' + Date.now();
+      const s  = document.createElement('script');
+      const t  = setTimeout(() => { cleanup(); resolve([...leaderboard]); }, 6000);
+      function cleanup(){ clearTimeout(t); delete window[cb]; if(s.parentNode) s.parentNode.removeChild(s); }
+      window[cb] = function(data) {
+        cleanup();
+        let scores = [...leaderboard];
+        if (data && data.status === 'ok' && Array.isArray(data.scores)) {
+          data.scores.forEach(r => {
+            if (!scores.some(m => m.name===r.name && m.date===r.date && m.game===r.game)) scores.push(r);
+          });
+        }
+        resolve(scores);
+      };
+      s.onerror = () => { cleanup(); resolve([...leaderboard]); };
+      s.src = gsUrl + '?action=getScores&callback=' + cb + '&t=' + Date.now();
+      document.head.appendChild(s);
+    });
   }
 
   if (!allScores.length) {
@@ -2016,6 +2051,31 @@ if (store.get('cba_theme') === 'light') {
   document.body.classList.add('light');
   document.querySelectorAll('.theme-toggle').forEach(b => b.textContent = '🌙 DARK MODE');
 }
+
+// ── COLOUR FILTER FOR ACCESSIBILITY ──
+let activeFilter = store.get('cba_filter') || 'none';
+// Clear any invalid filter value
+if (!['none','blue','green'].includes(activeFilter)) activeFilter = 'none';
+function setFilter(f) {
+  if (activeFilter === f) f = 'none';
+  activeFilter = f;
+  store.set('cba_filter', f);
+  document.body.classList.remove('filter-blue', 'filter-green');
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.classList.remove('active-blue', 'active-green');
+  });
+  if (f === 'blue') {
+    document.body.classList.add('filter-blue');
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.add('active-blue'));
+  } else if (f === 'green') {
+    document.body.classList.add('filter-green');
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.add('active-green'));
+  }
+}
+// Apply saved filter after DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  if (activeFilter !== 'none') setFilter(activeFilter);
+});
 
 // ═══════════════════════════════════════════════════════════
 // PROOF OF LEARNING — GENERATE PRINTABLE DOCUMENT
@@ -2598,20 +2658,23 @@ function tAnnounce(msg){
 async function tLoadData(){
   let all = [];
 
-  // Fetch from Google Sheets - primary cross-device source
+  // Fetch from Sheets using JSONP - works from GitHub Pages and local files
   if(gsUrl){
-    try {
-      const res = await fetch(gsUrl + '?action=getScores&t=' + Date.now(), {
-        method: 'GET',
-        cache: 'no-store'
-      });
-      const txt = await res.text();
-      const data = JSON.parse(txt);
-      if(data.status === 'ok' && Array.isArray(data.scores)){
-        all = data.scores;
-        tSetGsStatus('sheets');
-      }
-    } catch(e){ /* fall through to in-memory */ }
+    all = await new Promise(resolve => {
+      const cb = 'tCb_' + Date.now();
+      const s  = document.createElement('script');
+      const t  = setTimeout(() => { cleanup(); resolve([]); }, 8000);
+      function cleanup(){ clearTimeout(t); delete window[cb]; if(s.parentNode) s.parentNode.removeChild(s); }
+      window[cb] = function(data) {
+        cleanup();
+        if(data && data.status === 'ok' && Array.isArray(data.scores)){
+          tSetGsStatus('sheets'); resolve(data.scores);
+        } else { resolve([]); }
+      };
+      s.onerror = () => { cleanup(); tSetGsStatus('err'); resolve([]); };
+      s.src = gsUrl + '?action=getScores&callback=' + cb + '&t=' + Date.now();
+      document.head.appendChild(s);
+    });
   }
 
   // Also add any in-memory scores from this device not yet in Sheets
