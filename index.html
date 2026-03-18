@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CBA Computer Science — Keyword Arena</title>
+<title>CBA CS — Keyword Arena</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <style>
+
 :root {
   --bg:#07101f; --surface:#0f1e33; --surface2:#172845;
   --border:#1a3a5c; --accent:#00c8f0; --accent2:#ff7b2c;
@@ -600,6 +601,7 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
   .footer{text-align:center;margin-top:30px;font-size:10px;color:#4a7a9b;border-top:1px solid #b0c8de;padding-top:10px;}
   @media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
 
+
 </style>
 </head>
 <body>
@@ -617,6 +619,47 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
       <div class="home-card-desc">Play all games + Python Challenges. Log in with your name and class to earn points.</div>
       <div class="home-card-tag">▸ STUDENTS CLICK HERE</div>
     </div>
+
+</div>
+</div>
+</div><!-- /view-home -->
+
+<!-- ═══════════════ STUDENT ═══════════════ -->
+<div id="view-student">
+<!-- ════════════════════════════════════════════════
+     REGISTER SCREEN
+════════════════════════════════════════════════ -->
+<div id="register" class="screen active">
+  <div class="g-header">
+    <div style="display:flex;align-items:center;gap:.8rem;"><button class="home-back" onclick="showView('home')">← HOME</button><div class="g-logo">CBA <em>//</em> CS DEPT</div></div>
+    <div style="display:flex;align-items:center;gap:.6rem;">
+      <button class="theme-toggle" id="theme-btn-reg" onclick="toggleTheme()">☀ LIGHT MODE</button>
+      <div class="g-meta">KEYWORD ARENA<br>GCSE REVISION HUB</div>
+    </div>
+  </div>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:1.5rem 1rem;">
+    <div class="reg-wrap">
+      <div class="reg-top">
+        <h1>⌨ KEYWORD ARENA</h1>
+        <p>// CORBY BUSINESS ACADEMY — COMPUTER SCIENCE DEPARTMENT //</p>
+      </div>
+      <div class="reg-card">
+        <h2>▸ PLAYER REGISTRATION</h2>
+        <div class="reg-fields">
+          <div class="field">
+            <label for="reg-name">Your Name</label>
+            <input type="text" id="reg-name" placeholder="e.g. Alex Smith" maxlength="40"/>
+          </div>
+          <div class="field">
+            <label for="reg-class">Class / Group</label>
+            <input type="text" id="reg-class" placeholder="e.g. 10A, 11B" maxlength="20"/>
+          </div>
+        </div>
+        <div class="info-note">ℹ All game scores are saved to the class leaderboard. Your Quiz, Networks Challenge, Wordle completions, Connect 4 wins and Hangman completions all count toward your total.</div>
+        <button class="btn btn-pri btn-w100" onclick="doRegister()">ENTER ARENA →</button>
+      </div>
+
+
 
       <div style="margin-bottom:1rem;">
         <div class="sec-title" style="font-size:1rem;margin-bottom:.8rem;">▸ SELECT A GAME</div>
@@ -668,8 +711,6 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
     <div class="g-logo">CBA <em>//</em> CS DEPT</div>
     <div style="display:flex;align-items:center;gap:.6rem;">
       <button class="theme-toggle" id="theme-btn-main" onclick="toggleTheme()">☀ LIGHT MODE</button>
-      <button class="filter-btn" id="fb-blue-main" onclick="setFilter('blue')" title="Blue tint">🔵</button>
-      <button class="filter-btn" id="fb-green-main" onclick="setFilter('green')" title="Green tint">🟢</button>
       <div class="g-meta" id="main-meta">KEYWORD ARENA</div>
     </div>
   </div>
@@ -870,13 +911,51 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
 
     <!-- LEADERBOARD PANEL -->
     <div class="game-panel" id="panel-leaderboard">
-      <div class="panel-inner">
-        <h2>🏆 YOUR SCORES THIS SESSION</h2>
-        <div id="panel-lb-personal"></div>
-        <div style="text-align:center;padding:2rem 1rem;margin-top:1.5rem;background:var(--surface2);border:1px dashed var(--border);">
-          <div style="font-size:2rem;margin-bottom:.8rem;">📡</div>
-          <div style="font-family:'Orbitron',monospace;font-size:.8rem;color:var(--accent);margin-bottom:.5rem;letter-spacing:.08em;">SCORES SENT TO TEACHER</div>
-          <div style="font-family:'Share Tech Mono',monospace;font-size:.75rem;color:var(--dim);line-height:1.8;">Your results are automatically sent to<br>the teacher dashboard. Ask your teacher<br>to show the class leaderboard!</div>
+      <div id="panel-lb-personal"></div>
+      <div style="text-align:center;padding:1.5rem 1rem;margin-top:1rem;background:var(--surface2);border:1px dashed var(--border);">
+        <div style="font-size:1.8rem;margin-bottom:.5rem;">📡</div>
+        <div style="font-family:'Orbitron',monospace;font-size:.75rem;color:var(--accent);margin-bottom:.4rem;letter-spacing:.08em;">SCORES SENT TO TEACHER</div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--dim);line-height:1.8;">Your results are automatically sent to<br>the teacher dashboard!</div>
+      </div>
+      <div style="text-align:center;margin-bottom:1.2rem;">
+        <div class="sec-title" style="color:var(--gold);text-shadow:0 0 25px rgba(255,215,0,.4);">🏆 CLASS LEADERBOARD</div>
+        <div class="sec-sub">// all games · all scores · this session //</div>
+      </div>
+      <div style="display:flex;gap:.6rem;margin-bottom:1rem;flex-wrap:wrap;">
+        <button class="btn btn-org" onclick="exportCSV()">⬇ EXPORT CSV</button>
+        <button class="btn btn-blk" onclick="clearLB()">🗑 CLEAR SESSION</button>
+      </div>
+      <div id="panel-lb"></div>
+
+      <!-- PROOF OF LEARNING SECTION -->
+      <div style="margin-top:2rem;background:var(--surface);border:1px solid var(--border);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));"></div>
+        <div style="padding:.8rem 1rem;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
+          <div style="font-family:'Orbitron',monospace;font-size:.78rem;font-weight:700;color:var(--accent);letter-spacing:.1em;">📝 PROOF OF LEARNING</div>
+          <button class="btn btn-pri" style="font-size:.65rem;padding:.4rem .9rem;" onclick="generatePoL()">GENERATE &amp; DOWNLOAD</button>
+        </div>
+        <div style="padding:1rem 1.2rem;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1rem;" id="pol-fields">
+            <div>
+              <label for="pol-teacher">TEACHER NAME</label>
+              <input type="text" id="pol-teacher" placeholder="e.g. Mr Smith" style="font-size:.9rem;"/>
+            </div>
+            <div>
+              <label for="pol-date">DATE OF LESSON</label>
+              <input type="text" id="pol-date" placeholder="e.g. 12/03/2026" style="font-size:.9rem;"/>
+            </div>
+            <div>
+              <label for="pol-class">CLASS / GROUP</label>
+              <input type="text" id="pol-class" placeholder="e.g. 10A / 11B" style="font-size:.9rem;"/>
+            </div>
+            <div>
+              <label for="pol-topic">TOPIC COVERED</label>
+              <input type="text" id="pol-topic" placeholder="e.g. Networks & Protocols" style="font-size:.9rem;"/>
+            </div>
+          </div>
+          <div style="font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--dim);line-height:1.7;border:1px dashed var(--border);padding:.7rem .9rem;">
+            This will generate a printable HTML proof-of-learning document including: class details, student scores summary, leaderboard, game breakdown per student, and lesson objectives covered. Suitable for lesson observations, SLT review, and student progress records.
+          </div>
         </div>
       </div>
     </div>
@@ -887,15 +966,17 @@ body.light .py-complete .big-score{color:var(--green);text-shadow:none;}
 <div class="pts-flash" id="pts-flash"></div>
 </div>
 
+<div class="pts-flash" id="pts-flash"></div>
+
 <script>
+
 // ═══════════════════════════════════════════════
 // VIEW CONTROLLER
 // ═══════════════════════════════════════════════
 function showView(v) {
-  document.querySelectorAll('#view-home,#view-student,#view-teacher')
+  document.querySelectorAll('#view-home,#view-student')
     .forEach(el => el.classList.remove('active'));
   document.getElementById('view-' + v).classList.add('active');
-  if (v === 'teacher') teacherInit();
 }
 
 // ═══════════════════════════════════════════════
@@ -1158,14 +1239,13 @@ function doRegister(game) {
   if (!name) { alert('Please enter your name first!'); return; }
   player.name    = name;
   player.cls     = cls || '—';
-  player.session = document.getElementById('reg-session')?.value.trim() || (cls ? cls + ' — ' + new Date().toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB'));
+  player.session = cls ? cls + ' — ' + new Date().toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB');
   document.getElementById('player-badge').textContent = name + (cls?' · '+cls:'');
   document.getElementById('main-meta').textContent = 'KEYWORD ARENA — ' + name.toUpperCase();
   document.getElementById('register').classList.remove('active');
   document.getElementById('main').classList.add('active');
   initWordle(); initQuiz(); initC4(); initHangman();
   switchGame(game || 'wordle');
-  updateGsUi();
 }
 
 function switchGame(id) {
@@ -1180,45 +1260,6 @@ function switchGame(id) {
 // ═══════════════════════════════════════════════════════════
 // GOOGLE SHEETS INTEGRATION
 // ═══════════════════════════════════════════════════════════
-function saveGSUrl() {
-  const url = document.getElementById('gs-url-input').value.trim();
-  if (!url) { alert('Please paste a URL first.'); return; }
-  gsUrl = url;
-  store.set('cba_gs_url', gsUrl);
-  testGS(true);
-}
-function clearGSUrl() {
-  gsUrl=''; store.del('cba_gs_url');
-  document.getElementById('gs-url-input').value='';
-  updateGsUi();
-}
-function updateGsUi() {
-  const dot   = document.getElementById('gs-dot');
-  const txt   = document.getElementById('gs-status-text');
-  const badge = document.getElementById('gs-status-badge');
-  if (gsUrl) {
-    if(dot)   dot.className='gs-dot on';
-    if(txt)   txt.textContent='Google Sheets URL saved — scores will sync automatically';
-    if(badge) { badge.className='gs-sync-badge synced'; badge.textContent='● SHEETS: ACTIVE'; }
-  } else {
-    if(dot)   dot.className='gs-dot';
-    if(txt)   txt.textContent='No URL saved — scores stored locally only';
-    if(badge) { badge.className='gs-sync-badge'; badge.textContent='● SHEETS: NOT CONFIGURED'; }
-  }
-  const inp = document.getElementById('gs-url-input');
-  if(inp && gsUrl) inp.value = gsUrl;
-}
-async function testGS(showMsg) {
-  const msgEl = document.getElementById('gs-test-msg');
-  if(msgEl){ msgEl.style.display='block'; msgEl.className='msg info'; msgEl.textContent='Testing connection…'; }
-  try {
-    await fetch(gsUrl+'?action=ping', {method:'GET', mode:'no-cors'});
-    if(msgEl){ msgEl.className='msg ok'; msgEl.textContent='✅ URL saved! Scores will now sync to Google Sheets.'; }
-    updateGsUi();
-  } catch(e) {
-    if(msgEl){ msgEl.className='msg err'; msgEl.textContent='⚠ Could not reach URL. Check the address and try again.'; }
-  }
-}
 function syncToSheets(entry) {
   if (!gsUrl) return;
   const params = new URLSearchParams({
@@ -1264,11 +1305,7 @@ function saveScore(entry) {
   // Flash confirmation
   const pf = document.getElementById('pts-flash');
   if(pf){ pf.textContent = '+' + (entry.totalScore||0) + ' pts → sent to teacher ✓'; pf.className='pts-flash show'; setTimeout(()=>pf.className='pts-flash',2200); }
-  // If teacher view is open in same session, update it immediately
-  const tv = document.getElementById('view-teacher');
-  if(tv && tv.classList.contains('active')) {
-    tLoadData();
-  }
+
 }
 
 function renderLB() {
@@ -2272,9 +2309,7 @@ function resetPython(){
 
 // ─── INIT — wait for DOM to be fully ready ───
 document.addEventListener('DOMContentLoaded', function() {
-  updateGsUi();
-  const inp = document.getElementById('gs-url-input');
-  if(inp && gsUrl) inp.value = gsUrl;
+  // gs-url-input removed from student view
 });
 
 // Override DOMContentLoaded from student to also show home view
@@ -2287,10 +2322,10 @@ const THEME_KEY = 'cba_theme';
 
 document.addEventListener('DOMContentLoaded', function() {
   showView('home');
-  updateGsUi();
   // Auto-set GS URL in student view input if present
 
 });
+
 </script>
 </body>
 </html>
